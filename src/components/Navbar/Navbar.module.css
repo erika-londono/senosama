@@ -1,0 +1,75 @@
+.root {
+  display: flex;
+  align-items: center;
+  height: 8rem;
+  width: 100%;
+  background-color: white;
+  padding-left: 3rem;
+}
+
+.logo {
+  position: relative;
+  color: gray;
+  display: grid;
+  place-items: center;
+  top: 20%;
+  height: 7.5rem;
+  width: 7.5rem;
+  border-radius: 7.5rem;
+  background-color: rgb(236, 236, 236);
+  -webkit-box-shadow: 17px -2px 39px -19px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 17px -2px 39px -19px rgba(0, 0, 0, 0.75);
+  box-shadow: 17px -2px 39px -19px rgba(0, 0, 0, 0.75);
+}
+
+.title {
+  color: black;
+  font-size: 36px;
+  margin-left: 3rem;
+  font-weight: 700;
+  padding-top: 1rem;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin-left: auto;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.login h3 {
+  color: black;
+}
+
+.login span {
+  display: flex;
+  flex-direction: row;
+  background: #e930d4;
+  background: linear-gradient(90deg, #e930d4 0%, #4226a4 100%);
+  border-radius: 16px 0 0 16px;
+  padding: 8px 16px;
+  width: 22rem;
+  border-radius: 100px 0 0 100px;
+  gap: 1rem;
+  align-items: center;
+}
+
+.login span div {
+  background-color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+}
+
+.welcome {
+  font-size: 50px;
+  background: -webkit-linear-gradient(left, #e930d4, #4226a4);
+  background: -o-linear-gradient(right, #e930d4, #4226a4);
+  background: -moz-linear-gradient(right, #e930d4, #4226a4);
+  background: linear-gradient(to right, #e930d4, #4226a4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
