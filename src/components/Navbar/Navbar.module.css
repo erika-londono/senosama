@@ -9,17 +9,9 @@
 
 .logo {
   position: relative;
-  color: gray;
   display: grid;
   place-items: center;
   top: 20%;
-  height: 7.5rem;
-  width: 7.5rem;
-  border-radius: 7.5rem;
-  background-color: rgb(236, 236, 236);
-  -webkit-box-shadow: 17px -2px 39px -19px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 17px -2px 39px -19px rgba(0, 0, 0, 0.75);
-  box-shadow: 17px -2px 39px -19px rgba(0, 0, 0, 0.75);
 }
 
 .title {
@@ -72,4 +64,20 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.formRoot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8rem;
+  width: 100%;
+  padding-left: 3rem;
+  background: #b10d9e;
+  background: linear-gradient(160deg, #b10d9e 0%, #4226a4 100%);
+  padding-left: 0rem;
+}
+
+.formRoot img {
+  position: relative;
 }

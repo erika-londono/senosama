@@ -1,0 +1,19 @@
+.background {
+  background: rgb(250, 250, 250);
+  width: 100%;
+  height: calc(100vh - 8rem);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-top: 4rem;
+}
+
+.background h3 {
+  color: #b10d9e;
+  font-weight: 900;
+}
+
+.background input {
+  background-color: rgb(212, 212, 212);
+}

@@ -10,6 +10,7 @@ import Img3 from "../assets/img/Test socioeconómico.png";
 import Img4 from "../assets/img/Test familiar.png";
 import Img5 from "../assets/img/Cáncer de ovario.png";
 import Img6 from "../assets/img/Cáncer de mama.png";
+import BackgroundContainer from "@/components/BackgroundContainer/BackgroundContainer";
 
 export default function Home() {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Navbar />
-      <div className={styles.home}>
+      <BackgroundContainer>
         <section className={styles.menu}>
           <h2>MÓDULOS</h2>
           <div className={styles.options}>
@@ -44,12 +45,7 @@ export default function Home() {
             ))}
           </div>
         </section>
-        {/*    
-        <section className={styles.visual}>
-          <div className={styles.circle}></div>
-        </section> 
-        */}
-      </div>
+      </BackgroundContainer>
     </main>
   );
 }

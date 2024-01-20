@@ -3,13 +3,22 @@
 import React, { Fragment } from "react";
 import styles from "./Navbar.module.css";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Logo from "../../assets/img/logo.png";
 
-export default function Navbar({ signup }) {
+export default function Navbar({ signup, form }) {
   const router = useRouter();
 
-  return (
+  const MainBar = () => (
     <div className={styles.root}>
-      <div className={styles.logo}>LOGO</div>
+      <Image
+        className={styles.logo}
+        src={Logo}
+        alt={"Senosama"}
+        width={200}
+        height={200}
+        priority
+      />
       {!signup ? (
         <Fragment>
           <p className={styles.title}>Aplicativo SENOSama</p>
@@ -26,4 +35,19 @@ export default function Navbar({ signup }) {
       )}
     </div>
   );
+
+  const FormHeader = () => (
+    <div className={styles.formRoot}>
+      <Image
+        className={styles.logo}
+        src={Logo}
+        alt={"Senosama"}
+        width={200}
+        height={200}
+        priority
+      />
+    </div>
+  );
+
+  return form ? <FormHeader /> : <MainBar />;
 }

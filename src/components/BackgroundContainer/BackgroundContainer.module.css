@@ -1,0 +1,13 @@
+.root {
+  background-color: rgb(194, 194, 194);
+  background-image: url("../../assets/img/background.webp");
+  background-position: right;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: calc(100vh - 8rem);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
