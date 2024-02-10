@@ -16,7 +16,8 @@
   margin-bottom: 20px;
 }
 
-.background input {
+.background input,
+.background select {
   background-color: rgb(255, 255, 255);
 }
 

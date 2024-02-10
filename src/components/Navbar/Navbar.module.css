@@ -5,6 +5,7 @@
   width: 100%;
   background-color: white;
   padding-left: 3rem;
+  z-index: 15;
 }
 
 .logo {

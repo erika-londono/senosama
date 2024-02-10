@@ -5,6 +5,7 @@ import { useState } from "react";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button/Button";
 import Card from "@/components/Card";
+import SelectField from "@/components/SelectField";
 
 export default function DataPatient() {
   const [data, setData] = useState({});
@@ -39,10 +40,15 @@ export default function DataPatient() {
             <div
               className={`flex flex-wrap gap-6 justify-center ${styles.inputContainer}`}
             >
-              <InputField
+              <SelectField
                 label="Tipo de cedula"
                 value={data.tipodocumento || ""}
                 onChange={(e) => handleChange("tipodocumento", e)}
+                options={[
+                  { value: "CC", label: "Cedula de ciudadania" },
+                  { value: "CE", label: "Cedula de extranjeria" },
+                  { value: "P", label: "Pasaporte" },
+                ]}
               />
               <InputField
                 label="Cedula"
@@ -50,10 +56,14 @@ export default function DataPatient() {
                 onChange={(e) => handleChange("cedula", e)}
                 type="number"
               />
-              <InputField
+              <SelectField
                 label="Estado"
                 value={data.status || ""}
                 onChange={(e) => handleChange("status", e)}
+                options={[
+                  { value: "1", label: "Activa" },
+                  { value: "0", label: "Inactiva" },
+                ]}
               />
               <InputField
                 label="Fecha"
@@ -79,92 +89,169 @@ export default function DataPatient() {
                 label="Fecha de nacimiento"
                 value={data.fecha_nac || ""}
                 onChange={(e) => handleChange("fecha_nac", e)}
+                type="date"
+                placeholder="dd/mm/aaaa"
               />
-              <InputField
+
+              {/* <InputField
                 label="Edad"
                 value={data.edad || ""}
                 onChange={(e) => handleChange("edad", e)}
-              />
-              <InputField
+              /> */}
+              <SelectField
                 label="Sexo"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.sexo || ""}
+                onChange={(e) => handleChange("sexo", e)}
+                options={[
+                  { value: "M", label: "Masculino" },
+                  { value: "F", label: "Femenino" },
+                ]}
               />
-              <InputField
+              <SelectField
                 label="Estado civil"
                 value={data.estadocivil || ""}
                 onChange={(e) => handleChange("estadocivil", e)}
+                options={[
+                  { value: "S", label: "Soltero" },
+                  { value: "C", label: "Casado" },
+                  { value: "UL", label: "Union libre" },
+                  { value: "D", label: "Divorciado" },
+                  { value: "V", label: "Viudo" },
+                ]}
               />
-              <InputField
+              <SelectField
                 label="Nivel de escolaridad"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.escolaridad || ""}
+                onChange={(e) => handleChange("escolaridad", e)}
+                options={[
+                  { value: "PI", label: "Primaria incompleta" },
+                  { value: "PC", label: "Primaria completa" },
+                  { value: "SI", label: "Secundaria incompleta" },
+                  { value: "SC", label: "Secundaria completa" },
+                  { value: "UI", label: "Universitaria incompleta" },
+                  { value: "UC", label: "Universitaria completa" },
+                  { value: "PI", label: "Posgrado incompleto" },
+                  { value: "PC", label: "Posgrado completo" },
+                  { value: "Tecnico", label: "Tecnico" },
+                  { value: "Tecnnologia", label: "Tecnnologia" },
+                ]}
               />
-              <InputField
+              <SelectField
                 label="Ocupacion"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.ocupacion || ""}
+                onChange={(e) => handleChange("ocupacion", e)}
+                options={[
+                  { value: "H", label: "Hogar" },
+                  { value: "TI", label: "Trabajador independiente" },
+                  { value: "TD", label: "Trabajador dependiente" },
+                  { value: "P", label: "Pensionado" },
+                  { value: "O", label: "Otro" },
+                ]}
               />
-              <InputField
+              <SelectField
                 label="Religion"
                 value={data.religion || ""}
                 onChange={(e) => handleChange("religion", e)}
+                options={[
+                  { value: "C", label: "Catolica" },
+                  { value: "CR", label: "Cristiana" },
+                  { value: "E", label: "Evangelica" },
+                  { value: "TJ", label: "Testigo de Jehova" },
+                  { value: "O", label: "Otro" },
+                ]}
               />
-              <InputField
+              <SelectField
                 label="Departamento"
                 value={data.departamento || ""}
                 onChange={(e) => handleChange("departamento", e)}
+                options={[{ value: "C", label: "Integrar servicio" }]}
               />
-              <InputField
+              <SelectField
                 label="Ciudad"
                 value={data.municipio || ""}
                 onChange={(e) => handleChange("municipio", e)}
+                options={[{ value: "C", label: "Integrar servicio" }]}
               />
               <InputField
                 label="Direccion"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.direccion || ""}
+                onChange={(e) => handleChange("direccion", e)}
               />
               <InputField
                 label="Estrato"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.estrato || ""}
+                onChange={(e) => handleChange("estrato", e)}
               />
               <InputField
                 label="Telefono/Celular"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.movil || ""}
+                onChange={(e) => handleChange("movil", e)}
+                type="number"
               />
-              <InputField
+              <SelectField
                 label="Aseguradora"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.aseguradora || ""}
+                onChange={(e) => handleChange("aseguradora", e)}
+                options={[
+                  { value: "Asmetsalud", label: "Asmetsalud" },
+                  { value: "Colpatria", label: "Colpatria" },
+                  { value: "Comparta", label: "Comparta" },
+                  { value: "Coomeva", label: "Coomeva" },
+                  { value: "Coosalud", label: "Coosalud" },
+                  { value: "Ecopetrol", label: "Ecopetrol" },
+                  { value: "Ejército", label: "Ejército" },
+                  { value: "Emdisalud", label: " Emdisalud" },
+                  { value: "Famisanar", label: "Famisanar" },
+                  { value: "Magisterio", label: "Magisterio" },
+                  { value: "Medimás", label: "Medimás" },
+                  { value: "Mutualser", label: "Mutualser" },
+                  { value: "Nueva", label: "Nueva" },
+                  { value: "EPS", label: "EPS" },
+                  { value: "SaludMía", label: "SaludMía" },
+                  { value: "SaludVida", label: " SaludVida" },
+                  { value: "Sanitas", label: " Sanitas" },
+                  { value: "Suramericana", label: " Suramericana" },
+                  { value: "Saludtotal", label: "  Saludtotal" },
+                  { value: "Otro", label: " Otro" },
+                ]}
               />
-              <InputField
+              <SelectField
                 label="Regimen"
                 value={data.regimen || ""}
                 onChange={(e) => handleChange("regimen", e)}
+                options={[
+                  { value: "1", label: "Regimen especial" },
+                  { value: "2", label: "Contributivo" },
+                  { value: "3", label: "Subsidiado" },
+                  { value: "4", label: "Poblacion pobre no asegurada" },
+                ]}
               />
-              <InputField
+              <SelectField
                 label="Tipo de cancer"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.cancer || ""}
+                onChange={(e) => handleChange("cancer", e)}
+                options={[
+                  { value: "1", label: "Mama" },
+                  { value: "2", label: "Utero" },
+                  { value: "3", label: "Ovarios" },
+                ]}
               />
               <InputField
                 label="Año de diagnostico"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.diagnostico_año || ""}
+                onChange={(e) => handleChange("diagnostico_año", e)}
               />
               <InputField
                 label="Estado clinico"
-                value={data.edad || ""}
-                onChange={(e) => handleChange("edad", e)}
+                value={data.estado_clinico || ""}
+                onChange={(e) => handleChange("estado_clinico", e)}
               />
               <InputField
                 label="Tratamiento"
                 value={data.dispuestaacompartir || ""}
                 onChange={(e) => handleChange("dispuestaacompartir", e)}
               />
+
               <div></div>
               <div></div>
               <div></div>
@@ -189,6 +276,7 @@ export default function DataPatient() {
                 label="Telefono/Celular"
                 value={data.telefonop || ""}
                 onChange={(e) => handleChange("telefonop", e)}
+                type="number"
               />
               <div></div>
             </div>

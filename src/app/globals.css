@@ -108,3 +108,16 @@ a {
     color-scheme: dark;
   }
 }
+
+/* Hide autocomplete styles */
+*:-webkit-autofill,
+*:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+/* Hide arrows number type */
+*::-webkit-outer-spin-button,
+*::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

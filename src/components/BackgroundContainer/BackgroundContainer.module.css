@@ -1,13 +1,48 @@
 .root {
-  background-color: rgb(194, 194, 194);
-  background-image: url("../../assets/img/background.webp");
-  background-position: right;
-  background-size: cover;
-  background-repeat: no-repeat;
   width: 100%;
   height: calc(100vh - 8rem);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
+  background: #e930d4;
+  background: linear-gradient(130deg, #f150df 0%, #4226a4 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+.woman {
+  display: flex;
+  z-index: 2;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 8rem);
+  background-image: url("../../assets/img/woman.png");
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.circle {
+  position: absolute;
+  bottom: -80px;
+  right: -20px;
+  z-index: 1;
+  aspect-ratio: 1;
+  height: 90%;
+  width: auto;
+}
+.circle2 {
+  position: absolute;
+  bottom: -100px;
+  left: 100px;
+  z-index: 1;
+}
+.circle3 {
+  position: absolute;
+  bottom: 60vh;
+  right: -105px;
+  z-index: 9;
 }
