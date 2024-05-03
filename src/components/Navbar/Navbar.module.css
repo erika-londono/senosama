@@ -13,6 +13,7 @@
   display: grid;
   place-items: center;
   top: 20%;
+  cursor: pointer;
 }
 
 .title {

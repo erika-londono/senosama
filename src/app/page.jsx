@@ -11,8 +11,9 @@ import Img4 from "../assets/img/Test familiar.png";
 import Img5 from "../assets/img/Cáncer de ovario.png";
 import Img6 from "../assets/img/Cáncer de mama.png";
 import BackgroundContainer from "@/components/BackgroundContainer/BackgroundContainer";
+import withAuth from "@/HOC/withAuth";
 
-export default function Home() {
+function Home() {
   const router = useRouter();
 
   const menuOptions = [
@@ -49,3 +50,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default withAuth(Home);

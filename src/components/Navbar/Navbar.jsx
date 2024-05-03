@@ -1,13 +1,15 @@
 "use client";
 
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import styles from "./Navbar.module.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Logo from "../../assets/img/logo.png";
+import { AppStateContext } from "@/context/appStateProvider";
 
 export default function Navbar({ signup, form }) {
   const router = useRouter();
+  const { user } = useContext(AppStateContext);
 
   const MainBar = () => (
     <div className={styles.root}>
@@ -26,7 +28,7 @@ export default function Navbar({ signup, form }) {
             <h3>Bienvenido</h3>
             <span onClick={() => router.push(`/login`)}>
               <div></div>
-              Nombre
+              {user?.nombre}
             </span>
           </div>
         </Fragment>
@@ -45,6 +47,7 @@ export default function Navbar({ signup, form }) {
         width={200}
         height={200}
         priority
+        onClick={() => router.push(`/`)}
       />
     </div>
   );
