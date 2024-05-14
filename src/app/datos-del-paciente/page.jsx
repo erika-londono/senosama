@@ -9,9 +9,9 @@ import SelectField from "@/components/SelectField";
 import { getPatient, savePatient } from "../api/patient/fetch";
 import { AppStateContext } from "@/context/appStateProvider";
 import withAuth from "@/HOC/withAuth";
-//6344408
+
 function DataPatient() {
-  const [data, setData] = useState({ tipodocumento: 'CE'});
+  const [data, setData] = useState({ tipodocumento: 'Cedula de ciudadania'});
   const [savedData, setSavedData] = useState({});
   const [mode, setMode] = useState("search");
   const { settings } = useContext(AppStateContext);
