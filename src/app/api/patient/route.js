@@ -14,11 +14,16 @@ export async function GET(request) {
   const client = createTursoClient();
 
   const bdResponse = await client.execute({
-    sql: "SELECT * FROM usuarios WHERE cedula = ?",
+    sql: "SELECT * FROM formulario WHERE cedula = ?",
     args: [id],
   });
 
-  console.log(bdResponse.rows);
+  if (bdResponse.rows.length === 1){
+    return Response.json({
+      message: `Usted solicito información del paciente ${id}`,
+      data: {...bdResponse.rows[0]}
+    })
+  }
 
   if (id === "10101010") {
     return Response.json({

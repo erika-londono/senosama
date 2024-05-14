@@ -16,7 +16,7 @@ const SelectField = ({ label, name, onChange, options, className, value }) => {
         onChange={onChange}
         className={`cursor-pointer h-11 border-2 px-4 border-solid border-gray-400  focus:border-fuchsia-800 outline-none block w-full rounded-full py-2 text-gray-900 sm:text-sm sm:leading-6 shadow-md`}
       >
-        <option disabled selected value>
+        <option disabled value>
           Selecciona una opción
         </option>
         {options?.map((option) => (

@@ -18,7 +18,6 @@ export default function SignUp() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
     const response = await login({ email, password });
     const responseData = await response.json();
     if (responseData.data) {
@@ -26,6 +25,8 @@ export default function SignUp() {
         user: responseData.data,
       });
       router.push(`/`);
+    }else {
+      alert("Usuario y/o contraseña incorrectos")
     }
   };
 

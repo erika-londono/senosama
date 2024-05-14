@@ -9,9 +9,9 @@ import SelectField from "@/components/SelectField";
 import { getPatient, savePatient } from "../api/patient/fetch";
 import { AppStateContext } from "@/context/appStateProvider";
 import withAuth from "@/HOC/withAuth";
-
+//6344408
 function DataPatient() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({ tipodocumento: 'CE'});
   const [savedData, setSavedData] = useState({});
   const [mode, setMode] = useState("search");
   const { settings } = useContext(AppStateContext);
@@ -43,7 +43,7 @@ function DataPatient() {
     e.preventDefault();
     const response = await getPatient(data.tipodocumento, data.cedula.trim());
     const responseData = await response.json();
-    console.log(responseData.data);
+    
     if (responseData.data) {
       setData(responseData.data);
       setSavedData(JSON.stringify(responseData.data));
@@ -73,17 +73,18 @@ function DataPatient() {
         >
           <SelectField
             label="Tipo de cedula"
-            value={data.tipodocumento || ""}
+            defaultValue= "Cedula de ciudadania"
+            value={data.tipodocumento || "Cedula de ciudadania"}
             onChange={(e) => handleChange("tipodocumento", e)}
             options={[
-              { value: "CC", label: "Cedula de ciudadania" },
-              { value: "CE", label: "Cedula de extranjeria" },
-              { value: "P", label: "Pasaporte" },
+              { value: "Cedula de ciudadania", label: "Cedula de ciudadania" },
+              { value: "Cedula de extranjeria", label: "Cedula de extranjeria" },
+              { value: "Pasaporte", label: "Pasaporte" },
             ]}
           />
           <InputField
             label="Cedula"
-            value={data.cedula || ""}
+            value={data.cedula || 6344408}
             onChange={(e) => handleChange("cedula", e)}
             type="number"
           />
@@ -96,7 +97,7 @@ function DataPatient() {
       </Card>
     </form>
   );
-
+  console.log("data",data)
   return (
     <main className={styles.main}>
       <Navbar form />
@@ -119,9 +120,9 @@ function DataPatient() {
                   value={data.tipodocumento || ""}
                   onChange={(e) => handleChange("tipodocumento", e)}
                   options={[
-                    { value: "CC", label: "Cedula de ciudadania" },
-                    { value: "CE", label: "Cedula de extranjeria" },
-                    { value: "P", label: "Pasaporte" },
+                    { value: "Cedula de ciudadania", label: "Cédula de ciudadanía" },
+                    { value: "Cedula de extranjeria", label: "Cédula de extranjería" },
+                    { value: "Pasaporte", label: "Pasaporte" },
                   ]}
                 />
                 <InputField
@@ -135,14 +136,14 @@ function DataPatient() {
                   value={data.status || ""}
                   onChange={(e) => handleChange("status", e)}
                   options={[
-                    { value: "1", label: "Activa" },
-                    { value: "0", label: "Inactiva" },
+                    { value: "Activa", label: "Activa" },
+                    { value: "Inactiva", label: "Inactiva" },
                   ]}
                 />
                 <InputField
-                  label="Fecha"
-                  value={data.date || ""}
-                  onChange={(e) => handleChange("date", e)}
+                  label="Fecha de Ingreso"
+                  value={data.fecha_ing || ""}
+                  onChange={(e) => handleChange("fecha_ing", e)}
                 />
                 <InputField
                   label="Nombres"
@@ -171,8 +172,8 @@ function DataPatient() {
                   value={data.sexo || ""}
                   onChange={(e) => handleChange("sexo", e)}
                   options={[
-                    { value: "M", label: "Masculino" },
-                    { value: "F", label: "Femenino" },
+                    { value: "Masculino", label: "Masculino" },
+                    { value: "Femenino", label: "Femenino" },
                   ]}
                 />
                 <SelectField
@@ -180,11 +181,11 @@ function DataPatient() {
                   value={data.estadocivil || ""}
                   onChange={(e) => handleChange("estadocivil", e)}
                   options={[
-                    { value: "S", label: "Soltero" },
-                    { value: "C", label: "Casado" },
-                    { value: "UL", label: "Union libre" },
-                    { value: "D", label: "Divorciado" },
-                    { value: "V", label: "Viudo" },
+                    { value: "Soltero(a)", label: "Soltero(a)" },
+                    { value: "Casado(a)", label: "Casado(a)" },
+                    { value: "Union libre", label: "Union libre" },
+                    { value: "Divorciado(a)", label: "Divorciado(a)" },
+                    { value: "Viudo(a)", label: "Viudo(a)" },
                   ]}
                 />
                 <SelectField
@@ -192,16 +193,16 @@ function DataPatient() {
                   value={data.escolaridad || ""}
                   onChange={(e) => handleChange("escolaridad", e)}
                   options={[
-                    { value: "PI", label: "Primaria incompleta" },
-                    { value: "PC", label: "Primaria completa" },
-                    { value: "SI", label: "Secundaria incompleta" },
-                    { value: "SC", label: "Secundaria completa" },
-                    { value: "UI", label: "Universitaria incompleta" },
-                    { value: "UC", label: "Universitaria completa" },
-                    { value: "PI", label: "Posgrado incompleto" },
-                    { value: "PC", label: "Posgrado completo" },
+                    { value: "Primaria incompleta", label: "Primaria incompleta" },
+                    { value: "Primaria completa", label: "Primaria completa" },
+                    { value: "Secundaria incompleta", label: "Secundaria incompleta" },
+                    { value: "Secundaria completa", label: "Secundaria completa" },
+                    { value: "Universitaria incompleta", label: "Universitaria incompleta" },
+                    { value: "Universitaria completa", label: "Universitaria completa" },
+                    { value: "Posgrado incompleto", label: "Posgrado incompleto" },
+                    { value: "Posgrado completo", label: "Posgrado completo" },
                     { value: "Tecnico", label: "Tecnico" },
-                    { value: "Tecnnologia", label: "Tecnnologia" },
+                    { value: "Tecnologia", label: "Tecnologia" },
                   ]}
                 />
                 <SelectField
@@ -209,11 +210,11 @@ function DataPatient() {
                   value={data.ocupacion || ""}
                   onChange={(e) => handleChange("ocupacion", e)}
                   options={[
-                    { value: "H", label: "Hogar" },
-                    { value: "TI", label: "Trabajador independiente" },
-                    { value: "TD", label: "Trabajador dependiente" },
-                    { value: "P", label: "Pensionado" },
-                    { value: "O", label: "Otro" },
+                    { value: "Hogar", label: "Hogar" },
+                    { value: "Trabajador independiente", label: "Trabajador independiente" },
+                    { value: "Trabajador dependiente", label: "Trabajador dependiente" },
+                    { value: "Pensionado", label: "Pensionado" },
+                    { value: "Otro", label: "Otro" },
                   ]}
                 />
                 <SelectField
@@ -221,11 +222,11 @@ function DataPatient() {
                   value={data.religion || ""}
                   onChange={(e) => handleChange("religion", e)}
                   options={[
-                    { value: "C", label: "Catolica" },
-                    { value: "CR", label: "Cristiana" },
-                    { value: "E", label: "Evangelica" },
-                    { value: "TJ", label: "Testigo de Jehova" },
-                    { value: "O", label: "Otro" },
+                    { value: "Catolica", label: "Catolica" },
+                    { value: "Cristiana", label: "Cristiana" },
+                    { value: "Evangelica", label: "Evangelica" },
+                    { value: "Testigo de Jehova", label: "Testigo de Jehova" },
+                    { value: "Otro", label: "Otro" },
                   ]}
                 />
                 <SelectField
@@ -252,8 +253,8 @@ function DataPatient() {
                 />
                 <InputField
                   label="Telefono/Celular"
-                  value={data.movil || ""}
-                  onChange={(e) => handleChange("movil", e)}
+                  value={data.telefono || ""}
+                  onChange={(e) => handleChange("telefono", e)}
                   type="number"
                 />
                 <SelectField
@@ -288,10 +289,10 @@ function DataPatient() {
                   value={data.regimen || ""}
                   onChange={(e) => handleChange("regimen", e)}
                   options={[
-                    { value: "1", label: "Regimen especial" },
-                    { value: "2", label: "Contributivo" },
-                    { value: "3", label: "Subsidiado" },
-                    { value: "4", label: "Poblacion pobre no asegurada" },
+                    { value: "Regimen especial", label: "Regimen especial" },
+                    { value: "Contributivo", label: "Contributivo" },
+                    { value: "Subsidiado", label: "Subsidiado" },
+                    { value: "Poblacion pobre no asegurada", label: "Población pobre no asegurada" },
                   ]}
                 />
                 <SelectField
@@ -299,25 +300,25 @@ function DataPatient() {
                   value={data.cancer || ""}
                   onChange={(e) => handleChange("cancer", e)}
                   options={[
-                    { value: "1", label: "Mama" },
-                    { value: "2", label: "Utero" },
-                    { value: "3", label: "Ovarios" },
+                    { value: "Mama", label: "Mama" },
+                    { value: "Utero", label: "Utero" },
+                    { value: "Ovarios", label: "Ovarios" },
                   ]}
                 />
                 <InputField
                   label="Año de diagnostico"
-                  value={data.diagnostico_año || ""}
-                  onChange={(e) => handleChange("diagnostico_año", e)}
+                  value={data.tiempo || ""}
+                  onChange={(e) => handleChange("tiempo", e)}
                 />
                 <InputField
-                  label="Estado clinico"
-                  value={data.estado_clinico || ""}
+                  label="Estadio clinico"
+                  value={data.estadioclinico || ""}
                   onChange={(e) => handleChange("estado_clinico", e)}
                 />
                 <InputField
                   label="Tratamiento"
-                  value={data.dispuestaacompartir || ""}
-                  onChange={(e) => handleChange("dispuestaacompartir", e)}
+                  value={data.tratamiento || ""}
+                  onChange={(e) => handleChange("tratamiento", e)}
                 />
 
                 <div></div>
