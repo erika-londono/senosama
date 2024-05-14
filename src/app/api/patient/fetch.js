@@ -1,13 +1,12 @@
-const BACKEND_URL = "http://localhost:3000/api";
 
 export async function getPatient(idType, id) {
-  return await fetch(BACKEND_URL + `/patient?idType=${idType}&id=${id}`, {
+  return await fetch(process.env.BACKEND_URL + `/patient?idType=${idType}&id=${id}`, {
     method: "GET",
   });
 }
 
 export async function savePatient(data) {
-  return await fetch(BACKEND_URL + `/patient`, {
+  return await fetch(process.env.BACKEND_URL + `/patient`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
