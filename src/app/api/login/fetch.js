@@ -1,4 +1,3 @@
-
 export async function login(data) {
   return await fetch(process.env.BACKEND_URL + `/login`, {
     method: "POST",
