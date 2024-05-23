@@ -6,12 +6,12 @@ import InputField from "@/components/InputField";
 import Button from "@/components/Button/Button";
 import Card from "@/components/Card";
 import SelectField from "@/components/SelectField";
-import { getPatient, savePatient } from "../api/patient/fetch";
+import { getPatient, savePatient, updatePatient } from "../api/patient/fetch";
 import { AppStateContext } from "@/context/appStateProvider";
 import withAuth from "@/HOC/withAuth";
 
 function DataPatient() {
-  const [data, setData] = useState({ tipodocumento: 'Cedula de ciudadania'});
+  const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
   const [savedData, setSavedData] = useState({});
   const [mode, setMode] = useState("search");
   const { settings } = useContext(AppStateContext);
@@ -43,7 +43,7 @@ function DataPatient() {
     e.preventDefault();
     const response = await getPatient(data.tipodocumento, data.cedula.trim());
     const responseData = await response.json();
-    
+
     if (responseData.data) {
       setData(responseData.data);
       setSavedData(JSON.stringify(responseData.data));
@@ -52,11 +52,10 @@ function DataPatient() {
       setMode("create");
     }
   };
-
   const onConfirm = (e) => {
     e.preventDefault();
     setSavedData(JSON.stringify(data));
-    savePatient(data);
+    mode === "create" ? savePatient(data) : updatePatient(data);
   };
 
   const enableButton = JSON.stringify(data) !== savedData;
@@ -73,12 +72,15 @@ function DataPatient() {
         >
           <SelectField
             label="Tipo de cedula"
-            defaultValue= "Cedula de ciudadania"
+            defaultValue="Cedula de ciudadania"
             value={data.tipodocumento || "Cedula de ciudadania"}
             onChange={(e) => handleChange("tipodocumento", e)}
             options={[
               { value: "Cedula de ciudadania", label: "Cedula de ciudadania" },
-              { value: "Cedula de extranjeria", label: "Cedula de extranjeria" },
+              {
+                value: "Cedula de extranjeria",
+                label: "Cedula de extranjeria",
+              },
               { value: "Pasaporte", label: "Pasaporte" },
             ]}
           />
@@ -97,7 +99,7 @@ function DataPatient() {
       </Card>
     </form>
   );
-  console.log("data",data)
+
   return (
     <main className={styles.main}>
       <Navbar form />
@@ -120,8 +122,14 @@ function DataPatient() {
                   value={data.tipodocumento || ""}
                   onChange={(e) => handleChange("tipodocumento", e)}
                   options={[
-                    { value: "Cedula de ciudadania", label: "Cédula de ciudadanía" },
-                    { value: "Cedula de extranjeria", label: "Cédula de extranjería" },
+                    {
+                      value: "Cedula de ciudadania",
+                      label: "Cédula de ciudadanía",
+                    },
+                    {
+                      value: "Cedula de extranjeria",
+                      label: "Cédula de extranjería",
+                    },
                     { value: "Pasaporte", label: "Pasaporte" },
                   ]}
                 />
@@ -193,13 +201,31 @@ function DataPatient() {
                   value={data.escolaridad || ""}
                   onChange={(e) => handleChange("escolaridad", e)}
                   options={[
-                    { value: "Primaria incompleta", label: "Primaria incompleta" },
+                    {
+                      value: "Primaria incompleta",
+                      label: "Primaria incompleta",
+                    },
                     { value: "Primaria completa", label: "Primaria completa" },
-                    { value: "Secundaria incompleta", label: "Secundaria incompleta" },
-                    { value: "Secundaria completa", label: "Secundaria completa" },
-                    { value: "Universitaria incompleta", label: "Universitaria incompleta" },
-                    { value: "Universitaria completa", label: "Universitaria completa" },
-                    { value: "Posgrado incompleto", label: "Posgrado incompleto" },
+                    {
+                      value: "Secundaria incompleta",
+                      label: "Secundaria incompleta",
+                    },
+                    {
+                      value: "Secundaria completa",
+                      label: "Secundaria completa",
+                    },
+                    {
+                      value: "Universitaria incompleta",
+                      label: "Universitaria incompleta",
+                    },
+                    {
+                      value: "Universitaria completa",
+                      label: "Universitaria completa",
+                    },
+                    {
+                      value: "Posgrado incompleto",
+                      label: "Posgrado incompleto",
+                    },
                     { value: "Posgrado completo", label: "Posgrado completo" },
                     { value: "Tecnico", label: "Tecnico" },
                     { value: "Tecnologia", label: "Tecnologia" },
@@ -211,8 +237,14 @@ function DataPatient() {
                   onChange={(e) => handleChange("ocupacion", e)}
                   options={[
                     { value: "Hogar", label: "Hogar" },
-                    { value: "Trabajador independiente", label: "Trabajador independiente" },
-                    { value: "Trabajador dependiente", label: "Trabajador dependiente" },
+                    {
+                      value: "Trabajador independiente",
+                      label: "Trabajador independiente",
+                    },
+                    {
+                      value: "Trabajador dependiente",
+                      label: "Trabajador dependiente",
+                    },
                     { value: "Pensionado", label: "Pensionado" },
                     { value: "Otro", label: "Otro" },
                   ]}
@@ -292,7 +324,10 @@ function DataPatient() {
                     { value: "Regimen especial", label: "Regimen especial" },
                     { value: "Contributivo", label: "Contributivo" },
                     { value: "Subsidiado", label: "Subsidiado" },
-                    { value: "Poblacion pobre no asegurada", label: "Población pobre no asegurada" },
+                    {
+                      value: "Poblacion pobre no asegurada",
+                      label: "Población pobre no asegurada",
+                    },
                   ]}
                 />
                 <SelectField

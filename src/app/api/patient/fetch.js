@@ -14,3 +14,13 @@ export async function savePatient(data) {
     body: JSON.stringify(data),
   });
 }
+
+export async function updatePatient(data) {
+  return await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patient`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+}
