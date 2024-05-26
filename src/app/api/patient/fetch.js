@@ -1,12 +1,12 @@
 
 export async function getPatient(idType, id) {
-  return await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patient?idType=${idType}&id=${id}`, {
+  return await fetch(process.env.BACKEND_URL + `/patient?idType=${idType}&id=${id}`, {
     method: "GET",
   });
 }
 
 export async function savePatient(data) {
-  return await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patient`, {
+  return await fetch(process.env.BACKEND_URL + `/patient`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +16,7 @@ export async function savePatient(data) {
 }
 
 export async function updatePatient(data) {
-  return await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/patient`, {
+  return await fetch(process.env.BACKEND_URL + `/patient`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
