@@ -5,6 +5,7 @@ import { useState } from "react";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button/Button";
 import Card from "@/components/Card";
+import { updatePatientTest } from "../api/patient/test-psicosocial/fetch";
 
 export default function DataPatient() {
   const [data, setData] = useState({});
@@ -21,7 +22,9 @@ export default function DataPatient() {
   const onConfirm = (e) => {
     e.preventDefault();
     setSavedData(JSON.stringify(data));
-    //TODO: send data to server
+    //updatePatientTest(data);
+    //HARDCODED ID. TODO: ADD INPUT IN FRONT
+    updatePatientTest({ ...data, cedula: "6344408" });
   };
 
   const enableButton = JSON.stringify(data) !== savedData;
@@ -39,78 +42,78 @@ export default function DataPatient() {
               textarea
               id="info"
               label="¿Estás dispuesta a compartir información conmigo acerca de tu enfermedad?"
-              value={data.question1 || ""}
-              onChange={(e) => handleChange("question1", e)}
+              value={data.dispuestaacompartir || ""}
+              onChange={(e) => handleChange("dispuestaacompartir", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Qué piensa de la enfermedad que tiene?"
-              value={data.question2 || ""}
-              onChange={(e) => handleChange("question2", e)}
+              value={data.quepiensa || ""}
+              onChange={(e) => handleChange("quepiensa", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Cómo te has sentido en la última semana?"
-              value={data.question3 || ""}
-              onChange={(e) => handleChange("question3", e)}
+              value={data.sentido || ""}
+              onChange={(e) => handleChange("sentido", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Te has sentido triste, desganada e irritable por más de dos semanas?"
-              value={data.question4 || ""}
-              onChange={(e) => handleChange("question4", e)}
+              value={data.sentidotriste || ""}
+              onChange={(e) => handleChange("sentidotriste", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Has buscado ayuda de algún tipo?"
-              value={data.question5 || ""}
-              onChange={(e) => handleChange("question5", e)}
+              value={data.buscadoayuda || ""}
+              onChange={(e) => handleChange("buscadoayuda", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Consideras que yo te puedo colaborar de alguna manera?"
-              value={data.question6 || ""}
-              onChange={(e) => handleChange("question6", e)}
+              value={data.consideras || ""}
+              onChange={(e) => handleChange("consideras", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Quién es la persona que ha sido el mayor apoyo para ti?"
-              value={data.question7 || ""}
-              onChange={(e) => handleChange("question7", e)}
+              value={data.apoyo || ""}
+              onChange={(e) => handleChange("apoyo", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Cómo es tu relación con los miembros de tu familia?"
-              value={data.question8 || ""}
-              onChange={(e) => handleChange("question8", e)}
+              value={data.relacionfamilia || ""}
+              onChange={(e) => handleChange("relacionfamilia", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Algún recuerdo de la infancia que tienes más vivo?"
-              value={data.question9 || ""}
-              onChange={(e) => handleChange("question9", e)}
+              value={data.infancia || ""}
+              onChange={(e) => handleChange("infancia", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Cuáles factores estresantes existieron en tu vida durante los 6 meses previos al diagnóstico?"
-              value={data.question10 || ""}
-              onChange={(e) => handleChange("question10", e)}
+              value={data.injusta || ""}
+              onChange={(e) => handleChange("injusta", e)}
             />
             <InputField
               textarea
               id="info"
               label="¿Cuál es el pronóstico de tu enfermedad?"
-              value={data.question11 || ""}
-              onChange={(e) => handleChange("question11", e)}
+              value={data.pronostico || ""}
+              onChange={(e) => handleChange("pronostico", e)}
             />
             <Button disabled={!enableButton}>Guardar</Button>
           </form>
