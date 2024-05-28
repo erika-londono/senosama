@@ -83,3 +83,26 @@
 .formRoot img {
   position: relative;
 }
+
+@media (max-width: 1700px) and (min-width: 300px) {
+ .root{ 
+  padding-left: 0;
+  z-index: 15;
+}
+
+}
+
+@media (max-width: 490px) and (min-width: 300px) {
+  .root {
+    align-self: flex-start;
+  }
+ .root img {
+  align-self: flex-start;
+  width: 32%;
+  }
+  .title {
+  font-size: 2rem;
+  margin-left: 0.5rem;
+ }
+ 
+ }
