@@ -1,6 +1,6 @@
 export async function saveTracking(data) {
   return await fetch(
-    process.env.NEXT_PUBLIC_BACKEND_URL + `/patient/tracking`,
+    process.env.BACKEND_URL + `/patient/tracking`,
     {
       method: "POST",
       headers: {

@@ -1,6 +1,6 @@
 export async function updatePatientTest(data) {
   return await fetch(
-    process.env.NEXT_PUBLIC_BACKEND_URL + `/patient/test-psicosocial`,
+    process.env.BACKEND_URL + `/patient/test-psicosocial`,
     {
       method: "PUT",
       headers: {
