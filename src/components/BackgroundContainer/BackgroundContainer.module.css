@@ -113,7 +113,8 @@
   }
 
   .circle {
-    height: 60%;
+    height: auto;
+    width: 420px;
   }
 
   .circle2 {
@@ -137,9 +138,13 @@
     width: 115%;
   }
 
+  .woman div h1{
+    width: 50%;
+    padding-bottom: 20px;
+  }
+
   .circle {
-    height: 50%;
-    width: 70px;
+    display: none;
   }
 
   .circle2 {
@@ -155,8 +160,15 @@
   }
 }
 
+@media (max-width: 380px) {
+
+  .root div h1 {
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 340px) {
   .woman {
-    width: 141%;
+    width: 145%;
   }
 }
