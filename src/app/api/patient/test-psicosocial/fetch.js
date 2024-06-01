@@ -10,3 +10,10 @@ export async function updatePatientTest(data) {
     }
   );
 }
+
+export async function getPatientTest(idType, id) {
+  return await fetch(process.env.BACKEND_URL + `/patient/test-psicosocial?idType=${idType}&id=${id}`, {
+    method: "GET",
+  });
+}
+

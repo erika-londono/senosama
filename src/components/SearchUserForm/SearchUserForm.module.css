@@ -1,0 +1,4 @@
+.inputContainer > div {
+    flex: 1;
+    min-width: 350px;
+  }

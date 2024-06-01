@@ -10,11 +10,12 @@ import { getPatient, savePatient, updatePatient } from "../api/patient/fetch";
 import { AppStateContext } from "@/context/appStateProvider";
 import withAuth from "@/HOC/withAuth";
 import { saveTracking } from "../api/patient/tracking/fetch";
+import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 
 function DataPatient() {
   const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
   const [tracking, setTracking] = useState("");
-  const [savedData, setSavedData] = useState({});
+  const [savedData, setSavedData] = useState();
   const [savedTrackingData, setSavedTrackingData] = useState("");
   const [mode, setMode] = useState("search");
   const { settings } = useContext(AppStateContext);
@@ -42,9 +43,13 @@ function DataPatient() {
     });
   };
 
-  const onSearch = async (e) => {
+  const onSearch = async (e, formData) => {
+    console.log(formData);
     e.preventDefault();
-    const response = await getPatient(data.tipodocumento, data.cedula.trim());
+    const response = await getPatient(
+      formData.tipodocumento,
+      formData.cedula.trim()
+    );
     const responseData = await response.json();
 
     if (responseData.data) {
@@ -55,6 +60,7 @@ function DataPatient() {
       setMode("create");
     }
   };
+
   const onConfirm = (e) => {
     e.preventDefault();
     setSavedData(JSON.stringify(data));
@@ -75,53 +81,13 @@ function DataPatient() {
   const enableButton = JSON.stringify(data) !== savedData;
   const enableTrackingButton = tracking !== savedTrackingData;
 
-  const searchForm = (
-    <form
-      className="flex flex-col gap-6 justify-center items-center"
-      onSubmit={onSearch}
-    >
-      <Card>
-        <h3>Busqueda de paciente</h3>
-        <div
-          className={`flex flex-wrap gap-6 justify-center ${styles.inputContainer}`}
-        >
-          <SelectField
-            label="Tipo de cedula"
-            defaultValue="Cedula de ciudadania"
-            value={data.tipodocumento || "Cedula de ciudadania"}
-            onChange={(e) => handleChange("tipodocumento", e)}
-            options={[
-              { value: "Cedula de ciudadania", label: "Cedula de ciudadania" },
-              {
-                value: "Cedula de extranjeria",
-                label: "Cedula de extranjeria",
-              },
-              { value: "Pasaporte", label: "Pasaporte" },
-            ]}
-          />
-          <InputField
-            label="Cedula"
-            value={data.cedula || 6344408}
-            onChange={(e) => handleChange("cedula", e)}
-            type="number"
-          />
-        </div>
-        <footer className={`flex justify-center mt-8`}>
-          <Button disabled={!data.cedula || !data.tipodocumento}>
-            Consultar
-          </Button>
-        </footer>
-      </Card>
-    </form>
-  );
-
   return (
     <main className={styles.main}>
       <Navbar form />
       <div className={styles.background}>
         <h3>{mode === "create" ? "ALTA DE PACIENTE" : "DATOS DEL PACIENTE"}</h3>
         {mode === "search" ? (
-          searchForm
+          <SearchUserForm onSubmit={onSearch} />
         ) : (
           <>
             <form

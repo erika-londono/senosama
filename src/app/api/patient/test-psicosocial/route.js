@@ -36,3 +36,59 @@ export async function PUT(request) {
 
   return Response.json(response);
 }
+
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
+
+  if (!id) {
+    return Response.json({
+      message: `Error: Usted solicito información del paciente sin informar su id`,
+    });
+  }
+
+  const client = createTursoClient();
+
+  const bdResponse = await client.execute({
+    sql: "SELECT * FROM formulario WHERE cedula = ?",
+    args: [id],
+  });
+
+  if (bdResponse.rows.length === 1) {
+    const {
+      quepiensa,
+      sentido,
+      sentidotriste,
+      buscadoayuda,
+      consideras,
+      apoyo,
+      relacionfamilia,
+      infancia,
+      injusta,
+      pronostico,
+      cedula,
+    } = bdResponse.rows[0];
+
+    return Response.json({
+      message: `Usted solicito el test psicosocial del paciente ${id}`,
+      data: {
+        quepiensa,
+        sentido,
+        sentidotriste,
+        buscadoayuda,
+        consideras,
+        apoyo,
+        relacionfamilia,
+        infancia,
+        injusta,
+        pronostico,
+        cedula,
+      },
+    });
+  }
+
+  return Response.json({
+    message: `Usted solicito el test psicosocial del paciente ${id}, el cual no existe`,
+    data: null,
+  });
+}

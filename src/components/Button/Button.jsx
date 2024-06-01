@@ -5,7 +5,7 @@ import styles from "./Button.module.css";
 export default function Button(props) {
   return (
     <button
-      className={`${styles.root} ${props.disabled ? styles.disabled : ""}`}
+      className={`${styles.root} ${props.disabled ? styles.disabled : ""} ${props.className || ""}`}
       {...props}
     >
       {props.loading ? <Spinner /> : props.children}

@@ -1,0 +1,11 @@
+.root {
+  cursor: pointer;
+  color: rgba(66, 38, 164, 1);
+  text-decoration: underline;
+  user-select: none;
+  text-underline-offset: 3px;
+}
+
+.root:hover {
+  color: rgba(233, 48, 212, 1);
+}
