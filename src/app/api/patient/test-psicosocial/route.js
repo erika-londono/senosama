@@ -55,34 +55,23 @@ export async function GET(request) {
   });
 
   if (bdResponse.rows.length === 1) {
-    const {
-      quepiensa,
-      sentido,
-      sentidotriste,
-      buscadoayuda,
-      consideras,
-      apoyo,
-      relacionfamilia,
-      infancia,
-      injusta,
-      pronostico,
-      cedula,
-    } = bdResponse.rows[0];
+    const data = bdResponse.rows[0];
 
     return Response.json({
       message: `Usted solicito el test psicosocial del paciente ${id}`,
       data: {
-        quepiensa,
-        sentido,
-        sentidotriste,
-        buscadoayuda,
-        consideras,
-        apoyo,
-        relacionfamilia,
-        infancia,
-        injusta,
-        pronostico,
-        cedula,
+        dispuestaacompartir: data.dispuestaacompartir,
+        quepiensa: data.quepiensa,
+        sentido: data.sentido,
+        sentidotriste: data.sentidotriste,
+        buscadoayuda: data.buscadoayuda,
+        consideras: data.consideras,
+        apoyo: data.apoyo,
+        relacionfamilia: data.relacionfamilia,
+        infancia: data.infancia,
+        injusta: data.injusta,
+        pronostico: data.pronostico,
+        cedula: data.cedula,
       },
     });
   }

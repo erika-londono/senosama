@@ -59,7 +59,13 @@ export default function DataPatient() {
 
   const isSearchMode = mode === "search";
 
-  const enableButton = JSON.stringify(data) !== savedData;
+  const formChange = JSON.stringify(data) !== savedData;
+  //Inputs filled (with "" or text)
+  const allInputsFilled =
+    Object.keys(data).filter((id) => id !== "tipodocumento" && id !== "cedula")
+      .length === 11;
+
+  const enableButton = formChange && allInputsFilled;
 
   return (
     <main className={styles.main}>
