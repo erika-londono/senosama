@@ -11,11 +11,13 @@ import {
 } from "../api/patient/test-psicosocial/fetch";
 import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 import Link from "@/components/Link/Link";
+import { useRouter } from "next/navigation";
 
 export default function DataPatient() {
   const [data, setData] = useState({});
   const [savedData, setSavedData] = useState();
   const [mode, setMode] = useState("search");
+  const router = useRouter();
 
   const handleChange = (id, e) => {
     setData((prevState) => {
@@ -38,18 +40,25 @@ export default function DataPatient() {
       setSavedData(JSON.stringify(responseData.data));
       setMode("update");
     } else {
-      //NEW TEST FORM
-      setMode("create");
-      setData({ ...formData });
+      alert(
+        `Paciente ${formData.cedula} no encontrado. Primero se debe dar de alta.`
+      );
+      router.push(
+        `/datos-del-paciente?mode=create&tipodocumento=${formData.tipodocumento}&cedula=${formData.cedula}`
+      );
     }
   };
 
-  const onConfirm = (e) => {
+  const onConfirm = async (e) => {
     e.preventDefault();
     setSavedData(JSON.stringify(data));
-    //updatePatientTest(data);
-    //HARDCODED ID. TODO: ADD INPUT IN FRONT
-    updatePatientTest({ ...data, cedula: "6344408" });
+    const response = await updatePatientTest(data);
+    const responseData = await response.json();
+    if (response.status === 200 && !responseData.error) {
+      alert("Actualizado correctamente.");
+    } else {
+      alert("Error. Vuelva a intentarlo.");
+    }
   };
 
   const searchAgain = () => {

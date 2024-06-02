@@ -1,7 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./page.module.css";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useLayoutEffect, useMemo, useState } from "react";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button/Button";
 import Card from "@/components/Card";
@@ -12,13 +12,21 @@ import withAuth from "@/HOC/withAuth";
 import { saveTracking } from "../api/patient/tracking/fetch";
 import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 
-function DataPatient() {
+function DataPatient(props) {
   const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
   const [tracking, setTracking] = useState("");
   const [savedData, setSavedData] = useState();
   const [savedTrackingData, setSavedTrackingData] = useState("");
   const [mode, setMode] = useState("search");
   const { settings } = useContext(AppStateContext);
+
+  useLayoutEffect(() => {
+    const { mode, tipodocumento, cedula } = props.searchParams;
+    if (mode) {
+      setMode(mode);
+      setData({ tipodocumento, cedula });
+    }
+  }, [props.searchParams]);
 
   const departamentList = settings?.departamentos?.map((dep) => ({
     value: dep.idDepartamento,
