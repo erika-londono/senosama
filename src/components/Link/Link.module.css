@@ -4,6 +4,7 @@
   text-decoration: underline;
   user-select: none;
   text-underline-offset: 3px;
+  height: fit-content;
 }
 
 .root:hover {

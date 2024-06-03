@@ -1,0 +1,13 @@
+.root {
+  color: rgb(137, 131, 138);
+}
+
+.root:hover {
+  color: rgb(77, 77, 77);
+  background-color: white;
+}
+
+.active {
+  color: #7e0770;
+  background-color: rgb(247, 211, 238);
+}
