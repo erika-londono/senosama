@@ -23,9 +23,33 @@
 
 .inputContainer > div {
   flex: 1;
-  min-width: 350px;
+  min-width: 280px;
 }
 
 .main button {
   width: 350px;
+}
+
+@media (max-width: 450px) {
+
+  .background {
+    padding: 1rem;
+  }
+
+  .background > div {
+    padding-top: 2rem;
+    width: 90%;
+  }
+
+  .main button {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 340px) {
+
+  .background {
+    padding: 0;
+  }
 }

@@ -14,7 +14,6 @@ export default function SignUp() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
     router.push(`/login`);
   };
 

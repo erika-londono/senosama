@@ -2,3 +2,10 @@
     flex: 1;
     min-width: 350px;
   }
+
+  @media (max-width: 350px) {
+    .inputContainer > div {
+      max-width: 180px !important;
+      min-width: 300px;
+    }
+  }

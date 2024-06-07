@@ -55,7 +55,7 @@ function DataPatient(props) {
   };
 
   const onSearch = async (e, formData) => {
-    console.log(formData);
+
     e.preventDefault();
     const response = await getPatient(
       formData.tipodocumento,

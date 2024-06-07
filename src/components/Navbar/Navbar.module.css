@@ -106,3 +106,11 @@
  }
  
  }
+
+ .formRoot img:hover{
+  transition: all 0.2s ease-in-out;
+    font-weight: 900;
+    text-shadow: 0 0 8px var(--light-color);
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}

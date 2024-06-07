@@ -27,3 +27,12 @@
 .main button {
   width: 350px;
 }
+
+
+
+@media (max-width: 450px) {
+
+  .main button {
+    width: 100%;
+  }
+}

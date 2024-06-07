@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Logo from "../../assets/img/logo.png";
 import { AppStateContext } from "@/context/appStateProvider";
-
+import useWindowSize from "@/customHook/ismobile";
 export default function Navbar({ signup, form }) {
   const router = useRouter();
+ const isMobile = useWindowSize()
+
   const { user } = useContext(AppStateContext);
 
   const MainBar = () => (
@@ -23,7 +25,7 @@ export default function Navbar({ signup, form }) {
       />
       {!signup ? (
         <Fragment>
-          <p className={styles.title}>Aplicativo SENOSama</p>
+          {!isMobile  && <p className={styles.title}>Aplicativo SENOSama</p>}
           <div className={styles.login}>
             <h3>Bienvenido</h3>
             <span onClick={() => router.push(`/login`)}>

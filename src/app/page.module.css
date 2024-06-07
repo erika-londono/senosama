@@ -30,6 +30,16 @@
 
 /* Mobile */
 @media (max-width: 700px) {
+  .main {
+    gap:0;
+    height:auto;
+  }
+  .menu{
+    margin: auto !important;
+  }
+  .menu>h2{
+    display: none;
+  }
   .content {
     padding: 4rem;
   }
@@ -102,6 +112,18 @@
       transparent 0%,
       rgb(var(--background-end-rgb)) 40%
     );
+  }
+  .menu .options{
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 340px) {
+  .menu{
+    margin: 20px !important;
   }
 }
 
