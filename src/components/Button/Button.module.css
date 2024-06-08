@@ -5,8 +5,8 @@
   cursor: pointer;
   background: linear-gradient(
     90deg,
-    rgba(233, 48, 212, 1) 0%,
-    rgba(66, 38, 164, 1) 100%
+    #e930d4 0%,
+    #4226a4 100%
   );
   border: 0;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);

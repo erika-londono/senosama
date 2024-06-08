@@ -1,8 +1,6 @@
 import styles from "./TabSelector.module.css";
 
 export default function TabSelector({ active, setActive, options }) {
-  console.log(options);
-
   return (
     <>
       {/* TODO: MOBILE SELECT */}

@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import styles from "./Pill.module.css";
-import Document from "../../assets/svg/Document.svg";
 import Image from "next/image";
 
 export default function Pill({ label, icon, onClick }) {

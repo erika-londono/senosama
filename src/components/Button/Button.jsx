@@ -1,14 +1,16 @@
 "use client";
-import Spinner from "../Spinner/Spinner";
+import Loader from "../Loader/Loader";
 import styles from "./Button.module.css";
 
 export default function Button(props) {
   return (
     <button
-      className={`${styles.root} ${props.disabled ? styles.disabled : ""} ${props.className || ""}`}
+      className={`flex justify-center items-center ${styles.root} ${
+        props.disabled ? styles.disabled : ""
+      } ${props.className || ""}`}
       {...props}
     >
-      {props.loading ? <Spinner /> : props.children}
+      {props.loading ? <Loader white/> : props.children}
     </button>
   );
 }

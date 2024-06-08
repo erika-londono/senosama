@@ -2,8 +2,8 @@
   color: rgb(137, 131, 138);
 }
 
-.root:hover {
-  color: rgb(77, 77, 77);
+.root:hover:not(.active) {
+  color: rgb(160, 76, 135);
   background-color: white;
 }
 

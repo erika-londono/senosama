@@ -1,7 +1,14 @@
 "use client";
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./page.module.css";
-import { useContext, useLayoutEffect, useMemo, useState } from "react";
+import {
+  Fragment,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button/Button";
 import Card from "@/components/Card";
@@ -9,17 +16,25 @@ import SelectField from "@/components/SelectField";
 import { getPatient, savePatient, updatePatient } from "../api/patient/fetch";
 import { AppStateContext } from "@/context/appStateProvider";
 import withAuth from "@/HOC/withAuth";
-import { saveTracking } from "../api/patient/tracking/fetch";
+import { getTracking, saveTracking } from "../api/patient/tracking/fetch";
 import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 import Link from "@/components/Link/Link";
 import TabSelector from "@/components/TabSelector/TabSelector";
+import Loader from "@/components/Loader/Loader";
+import TrackingCard from "@/components/TrackingCard/TrackingCard";
 
 function DataPatient(props) {
   const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
   const [tracking, setTracking] = useState("");
+
   const [savedData, setSavedData] = useState();
   const [savedTrackingData, setSavedTrackingData] = useState("");
+
+  const [trackingList, setTrackingList] = useState();
+
   const [mode, setMode] = useState("search");
+  const [loading, setLoading] = useState(false);
+  const [addTracking, setAddTracking] = useState(false);
   const [tabSelected, setTabSelected] = useState("Paciente");
   const { settings } = useContext(AppStateContext);
 
@@ -55,7 +70,6 @@ function DataPatient(props) {
   };
 
   const onSearch = async (e, formData) => {
-
     e.preventDefault();
     const response = await getPatient(
       formData.tipodocumento,
@@ -79,21 +93,58 @@ function DataPatient(props) {
     mode === "create" ? savePatient(data) : updatePatient(data);
   };
 
-  const onConfirmTracking = (e) => {
+  const onConfirmTracking = async (e) => {
     e.preventDefault();
+
+    if (!addTracking) {
+      setAddTracking(true);
+      return;
+    }
+    setLoading(true);
     const payload = {
       nota: tracking,
       fecha: new Date(),
       cedula: data.cedula,
     };
+    await saveTracking(payload);
     setSavedTrackingData(tracking);
-    saveTracking(payload);
+    setAddTracking(false);
+    setTracking("");
+    setSavedTrackingData("");
+    getTrackingData();
+    setLoading(false);
   };
 
   const enableButton = JSON.stringify(data) !== savedData;
   const enableTrackingButton = tracking !== savedTrackingData;
 
-  console.log(tabSelected);
+  const getTrackingData = async () => {
+    const response = await getTracking(data.tipodocumento, data.cedula);
+    const responseData = await response.json();
+
+    if (responseData.data.length) {
+      setTrackingList(responseData.data.reverse());
+    } else {
+      alert(`No se pudo encontrar seguimientos.`);
+    }
+  };
+
+  useEffect(() => {
+    if (tabSelected === "Seguimiento") {
+      if (!trackingList) getTrackingData();
+    } else {
+      if (addTracking) setAddTracking(false);
+    }
+  }, [tabSelected]);
+
+  const resetSearch = () => {
+    setMode("search");
+    setAddTracking(false);
+    setTracking("");
+    setSavedTrackingData("");
+    getTrackingData();
+    setTrackingList();
+  };
 
   return (
     <main className={styles.main}>
@@ -122,9 +173,7 @@ function DataPatient(props) {
             )}
           </div>
           {mode !== "search" && (
-            <Link onClick={() => setMode("search")}>
-              Consultar otro paciente
-            </Link>
+            <Link onClick={resetSearch}>Consultar otro paciente</Link>
           )}
         </div>
 
@@ -429,13 +478,13 @@ function DataPatient(props) {
                 {tabSelected === "Información adicional" && (
                   <Card>
                     {/*   <h3>Informacion adicional</h3> */}
-                      <InputField
-                        textarea
-                        id="info"
-                        label="Describa las necesidades encontradas y/o identificadas"
-                        value={data.quepiensa || ""}
-                        onChange={(e) => handleChange("quepiensa", e)}
-                      />
+                    <InputField
+                      textarea
+                      id="info"
+                      label="Describa las necesidades encontradas y/o identificadas"
+                      value={data.quepiensa || ""}
+                      onChange={(e) => handleChange("quepiensa", e)}
+                    />
                   </Card>
                 )}
                 <Button disabled={!enableButton}>
@@ -444,22 +493,47 @@ function DataPatient(props) {
               </form>
             )}
             {tabSelected === "Seguimiento" && (
-              <form
-                className="flex flex-col gap-6 justify-center items-center  w-full"
-                onSubmit={onConfirmTracking}
-              >
-                <Card>
-                  {/* <h3>Seguimiento</h3> */}
-                  <InputField
-                    textarea
-                    id="info"
-                    label="Ingrese aqui tus comentarios de seguimiento"
-                    value={tracking || ""}
-                    onChange={(e) => setTracking(e.target.value)}
-                  />
-                </Card>
-                <Button disabled={!enableTrackingButton}>Guardar</Button>
-              </form>
+              <Fragment>
+                <form
+                  className="flex flex-col gap-6 justify-center items-center  w-full mb-5"
+                  onSubmit={onConfirmTracking}
+                >
+                  <Card className="flex flex-col gap-3 p-5">
+                    {/* <h3>Seguimiento</h3> */}
+                    {addTracking && (
+                      <div>
+                        <InputField
+                          textarea
+                          id="info"
+                          label="Ingrese aqui tus comentarios de seguimiento"
+                          value={tracking || ""}
+                          onChange={(e) => setTracking(e.target.value)}
+                        />
+                      </div>
+                    )}
+                    <Button
+                      style={{ alignSelf: "center" }}
+                      disabled={addTracking && !enableTrackingButton}
+                      loading={loading}
+                    >
+                      {addTracking ? "Guardar" : "Añadir seguimiento"}
+                    </Button>
+                  </Card>
+                </form>
+                {trackingList ? (
+                  <div className="flex flex-col w-full gap-4">
+                    {trackingList.map((track) => (
+                      <TrackingCard
+                        key={track.idseguimiento}
+                        data={track}
+                        getTrackingData={getTrackingData}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <Loader />
+                )}
+              </Fragment>
             )}
           </>
         )}
