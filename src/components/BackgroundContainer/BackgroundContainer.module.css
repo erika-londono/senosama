@@ -134,9 +134,9 @@
 
 @media (max-width: 576px) {
   .woman {
-    background-size: contain;
+    background-size: cover;
     background-position-x: right;
-    width: 121%;
+    width: 104%;
   }
 
   .woman div h1{
@@ -165,6 +165,10 @@
 
   .root div h1 {
     font-size: 1.2rem;
+  }
+
+  .woman {
+    width: 128%;
   }
 }
 
