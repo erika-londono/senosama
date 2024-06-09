@@ -26,3 +26,13 @@ export async function deleteTracking(id) {
     body: JSON.stringify({ id }),
   });
 }
+
+export async function updateTracking(data) {
+  return await fetch(process.env.BACKEND_URL + `/patient/tracking?`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+}

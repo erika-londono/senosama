@@ -6,7 +6,10 @@ import Close from "../../assets/svg/Close.svg";
 import Check from "../../assets/svg/Check.svg";
 import Image from "next/image";
 import styles from "./TrackingCard.module.css";
-import { deleteTracking } from "@/app/api/patient/tracking/fetch";
+import {
+  deleteTracking,
+  updateTracking,
+} from "@/app/api/patient/tracking/fetch";
 import InputField from "../InputField";
 
 export default function TrackingCard({ data, getTrackingData }) {
@@ -42,8 +45,11 @@ export default function TrackingCard({ data, getTrackingData }) {
     }
   };
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = async () => {
     console.log("saveChanges");
+    await updateTracking({ ...data, nota: newData });
+    setEditMode(false);
+    getTrackingData();
   };
 
   return (

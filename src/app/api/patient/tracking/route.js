@@ -76,3 +76,32 @@ export async function DELETE(request) {
     error: true,
   });
 }
+
+export async function PUT(request) {
+  const body = await request.json();
+  const client = createTursoClient();
+  const bdResponse = await client.execute({
+    sql: "UPDATE seguimiento SET (idseguimiento, nota, fecha, cedula) = (?, ?, ?, ?) WHERE idseguimiento = ?",
+    args: [
+      body.idseguimiento,
+      body.nota,
+      body.fecha,
+      body.cedula,
+      body.idseguimiento,
+    ],
+  });
+
+  let response = {
+    message: `No se pudo actualizar el seguimiento ${body.idseguimiento}.`,
+    error: true,
+  };
+
+  if (bdResponse.rowsAffected === 1) {
+    response = {
+      message: `Se actualizo el seguimiento ${body.idseguimiento} correctamente.`,
+      error: false,
+    };
+  }
+
+  return Response.json(response);
+}
