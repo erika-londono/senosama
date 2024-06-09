@@ -112,15 +112,18 @@
     align-items: self-start;
   }
 
-  .circle {
+  .hidden{
+    background-image: none;
+    width: 100% !important;
     height: auto;
-    width: 420px;
+  }
+
+  .circle {
+    display: none;
   }
 
   .circle2 {
-    left: 20px;
-    bottom: -60px;
-    width: 80px;
+    display: none;
   }
 
   .circle3 {
@@ -134,8 +137,7 @@
   .woman {
     background-size: contain;
     background-position-x: right;
-    height: 105vh;
-    width: 115%;
+    width: 121%;
   }
 
   .woman div h1{

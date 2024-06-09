@@ -1,8 +1,16 @@
 import styles from "./BackgroundContainer.module.css";
 import Image from "next/image";
 import Circle from "../../assets/img/circlebig.png";
-
+import useWindowSize from "@/customHook/ismobile";
+import { usePathname } from "next/navigation";
 export default function BackgroundContainer({ children }) {
+
+  const isMobile = useWindowSize();
+  const Pathname = usePathname();
+
+  console.log("path", Pathname==="/login")
+
+
   return (
     <div className={styles.root}>
       <Image
@@ -26,7 +34,7 @@ export default function BackgroundContainer({ children }) {
         width={150}
         height={150}
       />
-      <div className={styles.woman}>{children}</div>
+      <div className={`${Pathname !=="/login" && styles.hidden} ${styles.woman}`}>{children}</div>
     </div>
   );
 }
