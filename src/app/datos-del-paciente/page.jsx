@@ -37,7 +37,7 @@ function DataPatient(props) {
   const [addTracking, setAddTracking] = useState(false);
   const [tabSelected, setTabSelected] = useState("Paciente");
   const { settings } = useContext(AppStateContext);
-
+  
   useLayoutEffect(() => {
     const { mode, tipodocumento, cedula } = props.searchParams;
     if (mode) {
