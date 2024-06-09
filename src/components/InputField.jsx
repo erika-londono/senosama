@@ -1,16 +1,21 @@
 "use client";
-const InputField = ({
-  label,
-  name,
-  value,
-  onChange,
-  placeholder,
-  required = false,
-  type = "text",
-  className,
-  autoComplete,
-  textarea,
-}) => {
+import { forwardRef } from "react";
+
+const InputField = forwardRef(function InputField(
+  {
+    label,
+    name,
+    value,
+    onChange,
+    placeholder,
+    required = false,
+    type = "text",
+    className,
+    autoComplete,
+    textarea,
+  },
+  ref
+) {
   return (
     <div className={`w-full sm:col-span-2 ${className || ""}`}>
       <label
@@ -23,6 +28,7 @@ const InputField = ({
       </label>
       {textarea ? (
         <textarea
+          ref={ref}
           rows={3}
           type={type}
           name={name || label}
@@ -36,6 +42,7 @@ const InputField = ({
         />
       ) : (
         <input
+          ref={ref}
           type={type}
           name={name || label}
           id={name || label}
@@ -51,6 +58,6 @@ const InputField = ({
       )}
     </div>
   );
-};
+});
 
 export default InputField;

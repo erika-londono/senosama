@@ -8,9 +8,10 @@ export default function Button(props) {
       className={`flex justify-center items-center ${styles.root} ${
         props.disabled ? styles.disabled : ""
       } ${props.className || ""}`}
-      {...props}
+      style={props.style}
+      {...props.buttonProps}
     >
-      {props.loading ? <Loader white/> : props.children}
+      {props.loading ? <Loader white /> : props.children}
     </button>
   );
 }
