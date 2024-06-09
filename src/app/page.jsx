@@ -19,10 +19,10 @@ function Home() {
   const menuOptions = [
     "Datos del paciente",
     "Test psicosocial",
-    "Test socioeconómico",
-    "Test familiar",
+    // "Test socioeconómico",
+    // "Test familiar",
     "Cáncer de ovario",
-    "Cáncer de mama",
+    // "Cáncer de mama",
   ];
 
   const menuIcons = [Img1, Img2, Img3, Img4, Img5, Img6];
@@ -39,9 +39,13 @@ function Home() {
                 key={option}
                 label={option}
                 icon={menuIcons[index]}
-                onClick={() =>
-                  router.push(`/${option.toLowerCase().split(" ").join("-")}`)
-                }
+                onClick={() => {
+                  if (option === "Cáncer de ovario") {
+                      router.push("/modulo5/modulo.html");
+                  } else {
+                      router.push(`/${option.toLowerCase().split(" ").join("-")}`);
+                  }
+              }}
               />
             ))}
           </div>
