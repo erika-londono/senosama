@@ -37,7 +37,7 @@ function DataPatient(props) {
   const [addTracking, setAddTracking] = useState(false);
   const [tabSelected, setTabSelected] = useState("Paciente");
   const { settings } = useContext(AppStateContext);
-  
+
   useLayoutEffect(() => {
     const { mode, tipodocumento, cedula } = props.searchParams;
     if (mode) {
@@ -47,27 +47,33 @@ function DataPatient(props) {
   }, [props.searchParams]);
 
   const departamentList = settings?.departamentos?.map((dep) => ({
-    value: dep.idDepartamento,
+    value: dep.Departamento,
     label: dep.Departamento,
   }));
-
-  const citiesList = useMemo(() => {
-    if (data.departamento) {
-      return settings?.ciudades
-        ?.filter((city) => city.idDepartamento === +data.departamento)
-        ?.map((city) => ({ value: city.idCiudad, label: city.Ciudad }));
-    } else {
-      return [{ value: "C", label: "Seleccionar departamento" }];
-    }
-  }, [data.departamento]);
 
   const handleChange = (id, e) => {
     setData((prevState) => {
       const newState = { ...prevState };
-      newState[id] = e.target.value;
+      newState[id] = e.target?.value || e;
+      if (id === "departamento") {
+        newState["municipio"] = "";
+      }
       return newState;
     });
   };
+
+  const citiesList = useMemo(() => {
+    if (data.departamento) {
+      const idDepartament = settings?.departamentos.find(
+        (dep) => dep.Departamento === data.departamento
+      )?.idDepartamento;
+      return settings?.ciudades
+        ?.filter((city) => city.idDepartamento === idDepartament)
+        ?.map((city) => ({ value: city.Ciudad, label: city.Ciudad }));
+    } else {
+      return [{ value: "C", label: "Seleccionar departamento" }];
+    }
+  }, [data.departamento]);
 
   const onSearch = async (e, formData) => {
     e.preventDefault();
@@ -76,7 +82,6 @@ function DataPatient(props) {
       formData.cedula.trim()
     );
     const responseData = await response.json();
-
     if (responseData.data) {
       setData(responseData.data);
       setSavedData(JSON.stringify(responseData.data));
@@ -86,7 +91,7 @@ function DataPatient(props) {
       setMode("create");
     }
   };
-
+  
   const onConfirm = (e) => {
     e.preventDefault();
     setSavedData(JSON.stringify(data));
@@ -115,7 +120,9 @@ function DataPatient(props) {
     setLoading(false);
   };
 
-  const enableButton = JSON.stringify(data) !== savedData;
+  const enableButton =
+    JSON.stringify(data) !== savedData && data.departamento && data.municipio;
+
   const enableTrackingButton = tracking !== savedTrackingData;
 
   const getTrackingData = async () => {
@@ -188,7 +195,6 @@ function DataPatient(props) {
               >
                 {tabSelected === "Paciente" && (
                   <Card>
-                    {/* <h3>Informacion del paciente</h3> */}
                     <div
                       className={`flex flex-wrap gap-6 justify-center ${styles.inputContainer}`}
                     >
@@ -277,39 +283,39 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("escolaridad", e)}
                         options={[
                           {
-                            value: "Primaria incompleta",
+                            value: "primaria: incompleta",
                             label: "Primaria incompleta",
                           },
                           {
-                            value: "Primaria completa",
+                            value: "primaria: completa",
                             label: "Primaria completa",
                           },
                           {
-                            value: "Secundaria incompleta",
+                            value: "secundaria: incompleta",
                             label: "Secundaria incompleta",
                           },
                           {
-                            value: "Secundaria completa",
+                            value: "secundaria: completa",
                             label: "Secundaria completa",
                           },
                           {
-                            value: "Universitaria incompleta",
+                            value: "universitaria: incompleta",
                             label: "Universitaria incompleta",
                           },
                           {
-                            value: "Universitaria completa",
+                            value: "universitaria: completa",
                             label: "Universitaria completa",
                           },
                           {
-                            value: "Posgrado incompleto",
+                            value: "posgrado: incompleto",
                             label: "Posgrado incompleto",
                           },
                           {
-                            value: "Posgrado completo",
+                            value: "posgrado: completo",
                             label: "Posgrado completo",
                           },
-                          { value: "Tecnico", label: "Tecnico" },
-                          { value: "Tecnologia", label: "Tecnologia" },
+                          { value: "tecnico", label: "Tecnico" },
+                          { value: "tecnologia", label: "Tecnologia" },
                         ]}
                       />
                       <SelectField
@@ -375,8 +381,8 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Aseguradora"
-                        value={data.aseguradora || ""}
-                        onChange={(e) => handleChange("aseguradora", e)}
+                        value={data.asegurador || ""}
+                        onChange={(e) => handleChange("asegurador", e)}
                         options={[
                           { value: "Asmetsalud", label: "Asmetsalud" },
                           { value: "Colpatria", label: "Colpatria" },
@@ -390,8 +396,7 @@ function DataPatient(props) {
                           { value: "Magisterio", label: "Magisterio" },
                           { value: "Medimás", label: "Medimás" },
                           { value: "Mutualser", label: "Mutualser" },
-                          { value: "Nueva", label: "Nueva" },
-                          { value: "EPS", label: "EPS" },
+                          { value: "Nueva EPS", label: "Nueva EPS" },
                           { value: "SaludMía", label: "SaludMía" },
                           { value: "SaludVida", label: " SaludVida" },
                           { value: "Sanitas", label: " Sanitas" },
@@ -419,8 +424,8 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Tipo de cancer"
-                        value={data.cancer || ""}
-                        onChange={(e) => handleChange("cancer", e)}
+                        value={data.tipodecancer || ""}
+                        onChange={(e) => handleChange("tipodecancer", e)}
                         options={[
                           { value: "Mama", label: "Mama" },
                           { value: "Utero", label: "Utero" },
@@ -477,7 +482,6 @@ function DataPatient(props) {
                 )}
                 {tabSelected === "Información adicional" && (
                   <Card>
-                    {/*   <h3>Informacion adicional</h3> */}
                     <InputField
                       textarea
                       id="info"
@@ -499,7 +503,6 @@ function DataPatient(props) {
                   onSubmit={onConfirmTracking}
                 >
                   <Card className="flex flex-col gap-3 p-5">
-                    {/* <h3>Seguimiento</h3> */}
                     {addTracking && (
                       <div>
                         <InputField

@@ -46,7 +46,6 @@ export default function TrackingCard({ data, getTrackingData }) {
   };
 
   const handleSaveChanges = async () => {
-    console.log("saveChanges");
     await updateTracking({ ...data, nota: newData });
     setEditMode(false);
     getTrackingData();

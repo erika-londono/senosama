@@ -13,11 +13,13 @@ import { AppStateContext } from "@/context/appStateProvider";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { updateAppState } = useContext(AppStateContext);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const response = await login({ email, password });
     const responseData = await response.json();
     if (responseData.data) {
@@ -25,9 +27,10 @@ export default function SignUp() {
         user: responseData.data,
       });
       router.push(`/`);
-    }else {
-      alert("Usuario y/o contraseña incorrectos")
+    } else {
+      alert("Usuario y/o contraseña incorrectos");
     }
+    setLoading(false);
   };
 
   return (
@@ -58,7 +61,7 @@ export default function SignUp() {
                 onChange: (e) => setPassword(e.target.value),
               }}
             />
-            <Button>Continuar</Button>
+            <Button loading={loading}>Continuar</Button>
           </form>
         </div>
       </BackgroundContainer>
