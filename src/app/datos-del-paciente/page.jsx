@@ -91,7 +91,7 @@ function DataPatient(props) {
       setMode("create");
     }
   };
-  
+
   const onConfirm = (e) => {
     e.preventDefault();
     setSavedData(JSON.stringify(data));
@@ -120,8 +120,7 @@ function DataPatient(props) {
     setLoading(false);
   };
 
-  const enableButton =
-    JSON.stringify(data) !== savedData && data.departamento && data.municipio;
+  const enableButton = JSON.stringify(data) !== savedData && data.cedula;
 
   const enableTrackingButton = tracking !== savedTrackingData;
 
@@ -151,6 +150,7 @@ function DataPatient(props) {
     setSavedTrackingData("");
     getTrackingData();
     setTrackingList();
+    setData({});
   };
 
   return (
