@@ -4,6 +4,7 @@
   align-items: center;
   min-height: 100vh;
   height: calc(100vh);
+  color: #fffeee;
 }
 
 .home {
@@ -26,6 +27,7 @@
   font-size: 72px;
   max-width: 350px;
   margin-bottom: 4rem;
+  font-weight: bold;
 }
 
 .form {
@@ -34,12 +36,12 @@
   gap: 1rem;
 }
 .form h2 {
-  font-weight: 700;
+  font-weight: 900;
   margin-bottom: 1rem;
   font-size: 28px;
 }
 .form h3 {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 18px;
 }
 
