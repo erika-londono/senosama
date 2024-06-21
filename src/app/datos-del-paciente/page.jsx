@@ -54,7 +54,7 @@ function DataPatient(props) {
   const handleChange = (id, e) => {
     setData((prevState) => {
       const newState = { ...prevState };
-      newState[id] = e.target?.value || e;
+      newState[id] = e.target?.value ?? e;
       if (id === "departamento") {
         newState["municipio"] = "";
       }
@@ -77,6 +77,7 @@ function DataPatient(props) {
 
   const onSearch = async (e, formData) => {
     e.preventDefault();
+    setLoading(true);
     const response = await getPatient(
       formData.tipodocumento,
       formData.cedula.trim()
@@ -91,6 +92,7 @@ function DataPatient(props) {
       setMode("create");
       setData({ ...formData });
     }
+    setLoading(false);
   };
 
   const onConfirm = (e) => {
@@ -120,7 +122,7 @@ function DataPatient(props) {
     getTrackingData();
     setLoading(false);
   };
-
+  
   const enableButton = JSON.stringify(data) !== savedData && data.cedula;
 
   const enableTrackingButton = tracking !== savedTrackingData;
@@ -186,7 +188,7 @@ function DataPatient(props) {
         </div>
 
         {mode === "search" ? (
-          <SearchUserForm onSubmit={onSearch} />
+          <SearchUserForm loading={loading} onSubmit={onSearch} />
         ) : (
           <>
             {tabSelected !== "Seguimiento" && (

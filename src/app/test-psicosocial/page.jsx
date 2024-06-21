@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 
 export default function DataPatient() {
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
   const [savedData, setSavedData] = useState();
   const [mode, setMode] = useState("search");
   const router = useRouter();
@@ -94,7 +95,7 @@ export default function DataPatient() {
           )}
         </div>
         {isSearchMode ? (
-          <SearchUserForm onSubmit={onSearch} />
+          <SearchUserForm loading={loading} onSubmit={onSearch} />
         ) : (
           <Card>
             <form

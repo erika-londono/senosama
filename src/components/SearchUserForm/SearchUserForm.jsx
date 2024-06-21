@@ -5,7 +5,7 @@ import InputField from "../InputField";
 import Button from "../Button/Button";
 import styles from "./SearchUserForm.module.css";
 
-export default function SearchUserForm({ title, onSubmit }) {
+export default function SearchUserForm({ title, onSubmit, loading }) {
   const [data, setData] = useState({
     tipodocumento: "Cedula de ciudadania",
     cedula: "6344408",
@@ -51,7 +51,10 @@ export default function SearchUserForm({ title, onSubmit }) {
           />
         </div>
         <footer className={`flex justify-center mt-8`}>
-          <Button disabled={!data.cedula || !data.tipodocumento}>
+          <Button
+            loading={loading}
+            disabled={!data.cedula || !data.tipodocumento}
+          >
             Consultar
           </Button>
         </footer>
