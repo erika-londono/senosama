@@ -22,6 +22,7 @@ import Link from "@/components/Link/Link";
 import TabSelector from "@/components/TabSelector/TabSelector";
 import Loader from "@/components/Loader/Loader";
 import TrackingCard from "@/components/TrackingCard/TrackingCard";
+import TrackingSection from "@/components/TrackingSection/TrackingSection";
 
 function DataPatient(props) {
   const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
@@ -95,10 +96,12 @@ function DataPatient(props) {
     setLoading(false);
   };
 
-  const onConfirm = (e) => {
+  const onConfirm = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setSavedData(JSON.stringify(data));
-    mode === "create" ? savePatient(data) : updatePatient(data);
+    mode === "create" ? await savePatient(data) : await updatePatient(data);
+    setLoading(false);
   };
 
   const onConfirmTracking = async (e) => {
@@ -122,7 +125,7 @@ function DataPatient(props) {
     getTrackingData();
     setLoading(false);
   };
-  
+
   const enableButton = JSON.stringify(data) !== savedData && data.cedula;
 
   const enableTrackingButton = tracking !== savedTrackingData;
@@ -169,7 +172,7 @@ function DataPatient(props) {
             <h3>
               {mode === "create" ? "ALTA DE PACIENTE" : "DATOS DEL PACIENTE"}
             </h3>
-            {mode !== "search" && (
+            {mode === "update" && (
               <TabSelector
                 options={[
                   "Paciente",
@@ -196,7 +199,7 @@ function DataPatient(props) {
                 className="flex flex-col gap-6 justify-center items-center w-full"
                 onSubmit={onConfirm}
               >
-                {tabSelected === "Paciente" && (
+                {(tabSelected === "Paciente" || mode === "create") && (
                   <Card>
                     <div
                       className={`flex flex-wrap gap-6 justify-center ${styles.inputContainer}`}
@@ -457,7 +460,8 @@ function DataPatient(props) {
                     </div>
                   </Card>
                 )}
-                {tabSelected === "Persona responsable" && (
+                {(tabSelected === "Persona responsable" ||
+                  mode === "create") && (
                   <Card>
                     {/* <h3>Informacion de persona responsable</h3> */}
                     <div
@@ -483,7 +487,8 @@ function DataPatient(props) {
                     </div>
                   </Card>
                 )}
-                {tabSelected === "Información adicional" && (
+                {(tabSelected === "Información adicional" ||
+                  mode === "create") && (
                   <Card>
                     <InputField
                       textarea
@@ -494,53 +499,22 @@ function DataPatient(props) {
                     />
                   </Card>
                 )}
-                <Button disabled={!enableButton}>
+                <Button loading={loading} disabled={!enableButton}>
                   {mode === "create" ? "Guardar" : "Actualizar cambios"}
                 </Button>
               </form>
             )}
-            {tabSelected === "Seguimiento" && (
-              <Fragment>
-                <form
-                  className="flex flex-col gap-6 justify-center items-center  w-full mb-5"
-                  onSubmit={onConfirmTracking}
-                >
-                  <Card className="flex flex-col gap-3 p-5">
-                    {addTracking && (
-                      <div>
-                        <InputField
-                          textarea
-                          id="info"
-                          label="Ingrese aqui tus comentarios de seguimiento"
-                          value={tracking || ""}
-                          onChange={(e) => setTracking(e.target.value)}
-                        />
-                      </div>
-                    )}
-                    <Button
-                      style={{ alignSelf: "center" }}
-                      disabled={addTracking && !enableTrackingButton}
-                      loading={loading}
-                    >
-                      {addTracking ? "Guardar" : "Añadir seguimiento"}
-                    </Button>
-                  </Card>
-                </form>
-                {trackingList ? (
-                  <div className="flex flex-col w-full gap-4">
-                    {trackingList.map((track) => (
-                      <TrackingCard
-                        key={track.idseguimiento}
-                        data={track}
-                        getTrackingData={getTrackingData}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <Loader />
-                )}
-              </Fragment>
-            )}
+            <TrackingSection
+              show={tabSelected === "Seguimiento"}
+              onConfirmTracking={onConfirmTracking}
+              addTracking={addTracking}
+              tracking={tracking}
+              setTracking={setTracking}
+              loading={loading}
+              trackingList={trackingList}
+              getTrackingData={getTrackingData}
+              enableTrackingButton={enableTrackingButton}
+            />
           </>
         )}
       </div>
