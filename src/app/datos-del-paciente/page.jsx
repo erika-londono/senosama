@@ -89,6 +89,7 @@ function DataPatient(props) {
       setMode("update");
     } else {
       setMode("create");
+      setData({ ...formData });
     }
   };
 
@@ -128,9 +129,10 @@ function DataPatient(props) {
     const response = await getTracking(data.tipodocumento, data.cedula);
     const responseData = await response.json();
 
-    if (responseData.data.length) {
+    if (responseData?.data?.length) {
       setTrackingList(responseData.data.reverse());
     } else {
+      setTrackingList([]);
       alert(`No se pudo encontrar seguimientos.`);
     }
   };
@@ -148,7 +150,6 @@ function DataPatient(props) {
     setAddTracking(false);
     setTracking("");
     setSavedTrackingData("");
-    getTrackingData();
     setTrackingList();
     setData({});
   };
