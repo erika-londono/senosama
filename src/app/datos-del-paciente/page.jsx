@@ -225,7 +225,7 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("tipodocumento", e)}
                         options={[
                           {
-                            value: "Cedula de ciudadania",
+                            value: "Cédula", 
                             label: "Cédula de ciudadanía",
                           },
                           {
