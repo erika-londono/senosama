@@ -210,7 +210,7 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("tipodocumento", e)}
                         options={[
                           {
-                            value: "Cedula de ciudadania",
+                            value: "Cédula",
                             label: "Cédula de ciudadanía",
                           },
                           {
@@ -228,8 +228,8 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Estado"
-                        value={data.status || ""}
-                        onChange={(e) => handleChange("status", e)}
+                        value={data.fallecidas || ""}
+                        onChange={(e) => handleChange("fallecidas", e)}
                         options={[
                           { value: "Activa", label: "Activa" },
                           { value: "Inactiva", label: "Inactiva" },
@@ -263,22 +263,13 @@ function DataPatient(props) {
                         placeholder="dd/mm/aaaa"
                       />
                       <SelectField
-                        label="Sexo"
-                        value={data.sexo || ""}
-                        onChange={(e) => handleChange("sexo", e)}
-                        options={[
-                          { value: "Masculino", label: "Masculino" },
-                          { value: "Femenino", label: "Femenino" },
-                        ]}
-                      />
-                      <SelectField
                         label="Estado civil"
                         value={data.estadocivil || ""}
                         onChange={(e) => handleChange("estadocivil", e)}
                         options={[
                           { value: "Soltero(a)", label: "Soltero(a)" },
                           { value: "Casado(a)", label: "Casado(a)" },
-                          { value: "Union libre", label: "Union libre" },
+                          { value: "Union libre", label: "Unión libre" },
                           { value: "Divorciado(a)", label: "Divorciado(a)" },
                           { value: "Viudo(a)", label: "Viudo(a)" },
                         ]}
@@ -347,12 +338,13 @@ function DataPatient(props) {
                         value={data.religion || ""}
                         onChange={(e) => handleChange("religion", e)}
                         options={[
-                          { value: "Catolica", label: "Catolica" },
+                          { value: "Catolica", label: "Católica" },
                           { value: "Cristiana", label: "Cristiana" },
-                          { value: "Evangelica", label: "Evangelica" },
+                          { value: "Evangelica", label: "Evangélica" },
+                          { value: "Adventista", label: "Adventista" },
                           {
                             value: "Testigo de Jehova",
-                            label: "Testigo de Jehova",
+                            label: "Testigo de Jehová",
                           },
                           { value: "Otro", label: "Otro" },
                         ]}
