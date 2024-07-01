@@ -13,6 +13,8 @@ const InputField = forwardRef(function InputField(
     className,
     autoComplete,
     textarea,
+    readOnly,
+    disabled,
   },
   ref
 ) {
@@ -38,6 +40,8 @@ const InputField = forwardRef(function InputField(
           required={required}
           onChange={onChange}
           autoComplete={autoComplete}
+          readOnly={readOnly}
+          disabled={readOnly || disabled}
           className="w-full outline-none shadow-md bg-white text-gray-900 resize-none border-2 border-solid placeholder-gray-700 border-gray-400 focus:border-fuchsia-800 p-2 rounded-xl"
         />
       ) : (
@@ -51,6 +55,8 @@ const InputField = forwardRef(function InputField(
           required={required}
           onChange={onChange}
           autoComplete={autoComplete}
+          readOnly={readOnly}
+          disabled={readOnly || disabled}
           className={`${
             type === "date" ? "cursor-text" : ""
           } border-2 px-4 border-solid h-11 border-gray-400  focus:border-fuchsia-800 outline-none block w-full rounded-full py-2 text-gray-900 sm:text-sm sm:leading-6 shadow-md`}

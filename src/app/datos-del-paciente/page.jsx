@@ -23,6 +23,7 @@ import TabSelector from "@/components/TabSelector/TabSelector";
 import Loader from "@/components/Loader/Loader";
 import TrackingCard from "@/components/TrackingCard/TrackingCard";
 import TrackingSection from "@/components/TrackingSection/TrackingSection";
+import getAge from "@/utils/age";
 
 function DataPatient(props) {
   const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
@@ -38,6 +39,10 @@ function DataPatient(props) {
   const [addTracking, setAddTracking] = useState(false);
   const [tabSelected, setTabSelected] = useState("Paciente");
   const { settings } = useContext(AppStateContext);
+
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useLayoutEffect(() => {
     const { mode, tipodocumento, cedula } = props.searchParams;
@@ -98,9 +103,19 @@ function DataPatient(props) {
 
   const onConfirm = async (e) => {
     e.preventDefault();
+    if (!enableButton) {
+      return;
+    }
     setLoading(true);
     setSavedData(JSON.stringify(data));
-    mode === "create" ? await savePatient(data) : await updatePatient(data);
+    const response =
+      mode === "create" ? await savePatient(data) : await updatePatient(data);
+    const responseData = await response.json();
+    alert(responseData?.message);
+    if (mode === "create" && !responseData.error) {
+      setMode("update");
+      scrollTop();
+    }
     setLoading(false);
   };
 
@@ -261,6 +276,11 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("fecha_nac", e)}
                         type="date"
                         placeholder="dd/mm/aaaa"
+                      />
+                      <InputField
+                        label="Edad"
+                        value={getAge(data.fecha_nac) || ""}
+                        readOnly
                       />
                       <SelectField
                         label="Estado civil"

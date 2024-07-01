@@ -18,7 +18,7 @@ export async function GET(request) {
     args: [id],
   });
 
-  if (bdResponse.rows.length === 1) {
+  if (bdResponse.rows.length > 0) {
     return Response.json({
       message: `Usted solicito información del paciente ${id}`,
       data: { ...bdResponse.rows[0] },
@@ -34,6 +34,19 @@ export async function GET(request) {
 export async function POST(request) {
   const body = await request.json();
   const client = createTursoClient();
+
+  const checkBdResponse = await client.execute({
+    sql: "SELECT * FROM formulario WHERE cedula = ?",
+    args: [body.cedula],
+  });
+
+  if (checkBdResponse.rows.length > 0) {
+    return Response.json({
+      message: `El paciente ${body.cedula} ya existe.`,
+      data: null,
+    });
+  }
+
   const bdResponse = await client.execute({
     sql: "INSERT INTO formulario (tipodocumento, cedula, nombre, apellidos, fecha_nac, existencia, estadocivil, escolaridad, ocupacion, sicontesto1o2, pension, religion, departamento, municipio, direccion, telefono, asegurador, regimen, tipodecancer, estadioclinico, tratamiento, personaresponsable, parentesco, telefonop, necesidadesencontradas, date_seguimiento, relacionfamilia, dispuestaacompartir, infancia, sentido, buscadoayuda, consideras, sentidotriste, apoyo, injusta, pronostico, email, estrato, tiempo, quepiensa, fallecidas, fecha_ing) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     args: [
