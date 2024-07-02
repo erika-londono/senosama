@@ -7,7 +7,7 @@ import styles from "./SearchUserForm.module.css";
 
 export default function SearchUserForm({ title, onSubmit, loading }) {
   const [data, setData] = useState({
-    tipodocumento: "Cedula de ciudadania",
+    tipodocumento: "Cédula",
     cedula: "6344408",
   });
 
@@ -31,11 +31,11 @@ export default function SearchUserForm({ title, onSubmit, loading }) {
         >
           <SelectField
             label="Tipo de cedula"
-            defaultValue="Cedula de ciudadania"
-            value={data.tipodocumento || "Cedula de ciudadania"}
+            defaultValue="Cédula"
+            value={data.tipodocumento || "Cédula"}
             onChange={(e) => handleChange("tipodocumento", e)}
             options={[
-              { value: "Cedula de ciudadania", label: "Cedula de ciudadania" },
+              { value: "Cédula", label: "Cédula de ciudadanía" },
               {
                 value: "Cedula de extranjeria",
                 label: "Cedula de extranjeria",

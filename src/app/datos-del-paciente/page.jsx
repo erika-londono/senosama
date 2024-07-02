@@ -254,6 +254,8 @@ function DataPatient(props) {
                         label="Fecha de Ingreso"
                         value={data.fecha_ing || ""}
                         onChange={(e) => handleChange("fecha_ing", e)}
+                        type="date"
+                        placeholder="dd/mm/aaaa"
                       />
                       <InputField
                         label="Nombres"
@@ -458,7 +460,7 @@ function DataPatient(props) {
                       <InputField
                         label="Estadio clinico"
                         value={data.estadioclinico || ""}
-                        onChange={(e) => handleChange("estado_clinico", e)}
+                        onChange={(e) => handleChange("estadioclinico", e)}
                       />
                       <InputField
                         label="Tratamiento"
