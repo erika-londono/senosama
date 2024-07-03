@@ -221,7 +221,7 @@ function DataPatient(props) {
                     >
                       <SelectField
                         label="Tipo de cedula"
-                        value={data.tipodocumento || ""}
+                        value={data.tipodocumento}
                         onChange={(e) => handleChange("tipodocumento", e)}
                         options={[
                           {
@@ -237,13 +237,13 @@ function DataPatient(props) {
                       />
                       <InputField
                         label="Cedula"
-                        value={data.cedula || ""}
+                        value={data.cedula}
                         onChange={(e) => handleChange("cedula", e)}
                         type="number"
                       />
                       <SelectField
                         label="Estado"
-                        value={data.fallecidas || ""}
+                        value={data.fallecidas}
                         onChange={(e) => handleChange("fallecidas", e)}
                         options={[
                           { value: "Activa", label: "Activa" },
@@ -252,41 +252,41 @@ function DataPatient(props) {
                       />
                       <InputField
                         label="Fecha de Ingreso"
-                        value={data.fecha_ing || ""}
+                        value={data.fecha_ing}
                         onChange={(e) => handleChange("fecha_ing", e)}
                         type="date"
                         placeholder="dd/mm/aaaa"
                       />
                       <InputField
                         label="Nombres"
-                        value={data.nombre || ""}
+                        value={data.nombre}
                         onChange={(e) => handleChange("nombre", e)}
                       />
                       <InputField
                         label="Apellidos"
-                        value={data.apellidos || ""}
+                        value={data.apellidos}
                         onChange={(e) => handleChange("apellidos", e)}
                       />
                       <InputField
                         label="Email"
-                        value={data.email || ""}
+                        value={data.email}
                         onChange={(e) => handleChange("email", e)}
                       />
                       <InputField
                         label="Fecha de nacimiento"
-                        value={data.fecha_nac || ""}
+                        value={data.fecha_nac}
                         onChange={(e) => handleChange("fecha_nac", e)}
                         type="date"
                         placeholder="dd/mm/aaaa"
                       />
                       <InputField
                         label="Edad"
-                        value={getAge(data.fecha_nac) || ""}
+                        value={getAge(data.fecha_nac)}
                         readOnly
                       />
                       <SelectField
                         label="Estado civil"
-                        value={data.estadocivil || ""}
+                        value={data.estadocivil}
                         onChange={(e) => handleChange("estadocivil", e)}
                         options={[
                           { value: "Soltero(a)", label: "Soltero(a)" },
@@ -298,7 +298,7 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Nivel de escolaridad"
-                        value={data.escolaridad || ""}
+                        value={data.escolaridad}
                         onChange={(e) => handleChange("escolaridad", e)}
                         options={[
                           {
@@ -339,7 +339,7 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Ocupacion"
-                        value={data.ocupacion || ""}
+                        value={data.ocupacion}
                         onChange={(e) => handleChange("ocupacion", e)}
                         options={[
                           { value: "Hogar", label: "Hogar" },
@@ -357,7 +357,7 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Religion"
-                        value={data.religion || ""}
+                        value={data.religion}
                         onChange={(e) => handleChange("religion", e)}
                         options={[
                           { value: "Catolica", label: "Católica" },
@@ -373,35 +373,35 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Departamento"
-                        value={data.departamento || ""}
+                        value={data.departamento}
                         onChange={(e) => handleChange("departamento", e)}
                         options={departamentList}
                       />
                       <SelectField
                         label="Ciudad"
-                        value={data.municipio || ""}
+                        value={data.municipio}
                         onChange={(e) => handleChange("municipio", e)}
                         options={citiesList}
                       />
                       <InputField
                         label="Direccion"
-                        value={data.direccion || ""}
+                        value={data.direccion}
                         onChange={(e) => handleChange("direccion", e)}
                       />
                       <InputField
                         label="Estrato"
-                        value={data.estrato || ""}
+                        value={data.estrato}
                         onChange={(e) => handleChange("estrato", e)}
                       />
                       <InputField
                         label="Telefono/Celular"
-                        value={data.telefono || ""}
+                        value={data.telefono}
                         onChange={(e) => handleChange("telefono", e)}
                         type="number"
                       />
                       <SelectField
                         label="Aseguradora"
-                        value={data.asegurador || ""}
+                        value={data.asegurador}
                         onChange={(e) => handleChange("asegurador", e)}
                         options={[
                           { value: "Asmetsalud", label: "Asmetsalud" },
@@ -427,7 +427,7 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Regimen"
-                        value={data.regimen || ""}
+                        value={data.regimen}
                         onChange={(e) => handleChange("regimen", e)}
                         options={[
                           {
@@ -444,7 +444,7 @@ function DataPatient(props) {
                       />
                       <SelectField
                         label="Tipo de cancer"
-                        value={data.tipodecancer || ""}
+                        value={data.tipodecancer}
                         onChange={(e) => handleChange("tipodecancer", e)}
                         options={[
                           { value: "Mama", label: "Mama" },
@@ -454,17 +454,17 @@ function DataPatient(props) {
                       />
                       <InputField
                         label="Año de diagnostico"
-                        value={data.tiempo || ""}
+                        value={data.tiempo}
                         onChange={(e) => handleChange("tiempo", e)}
                       />
                       <InputField
                         label="Estadio clinico"
-                        value={data.estadioclinico || ""}
+                        value={data.estadioclinico}
                         onChange={(e) => handleChange("estadioclinico", e)}
                       />
                       <InputField
                         label="Tratamiento"
-                        value={data.tratamiento || ""}
+                        value={data.tratamiento}
                         onChange={(e) => handleChange("tratamiento", e)}
                       />
 
@@ -483,17 +483,17 @@ function DataPatient(props) {
                     >
                       <InputField
                         label="Nombre completo"
-                        value={data.personaresponsable || ""}
+                        value={data.personaresponsable}
                         onChange={(e) => handleChange("personaresponsable", e)}
                       />
                       <InputField
                         label="Parentesco"
-                        value={data.parentesco || ""}
+                        value={data.parentesco}
                         onChange={(e) => handleChange("parentesco", e)}
                       />
                       <InputField
                         label="Telefono/Celular"
-                        value={data.telefonop || ""}
+                        value={data.telefonop}
                         onChange={(e) => handleChange("telefonop", e)}
                         type="number"
                       />
@@ -508,7 +508,7 @@ function DataPatient(props) {
                       textarea
                       id="info"
                       label="Describa las necesidades encontradas y/o identificadas"
-                      value={data.quepiensa || ""}
+                      value={data.quepiensa}
                       onChange={(e) => handleChange("quepiensa", e)}
                     />
                   </Card>
