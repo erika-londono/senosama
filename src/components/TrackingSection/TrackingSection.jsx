@@ -33,7 +33,7 @@ export default function TrackingSection({
                 textarea
                 id="info"
                 label="Ingrese aqui tus comentarios de seguimiento"
-                value={tracking || ""}
+                value={tracking}
                 onChange={(e) => setTracking(e.target.value)}
               />
             </div>
