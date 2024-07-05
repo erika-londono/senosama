@@ -48,3 +48,11 @@
 .form button {
   margin-top: 1rem;
 }
+
+@media (max-width: 576px) {
+  .main h1,
+  .form h2,
+  .form h3 {
+    text-shadow: 2px 2px #000000;
+  }
+}

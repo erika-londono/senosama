@@ -95,6 +95,7 @@ function DataPatient(props) {
       setTabSelected("Paciente");
       setMode("update");
     } else {
+      alert("El registro no existe. Deseas crearlo?");
       setMode("create");
       setData({ ...formData });
     }
@@ -184,9 +185,7 @@ function DataPatient(props) {
           } mb-5`}
         >
           <div>
-            <h3>
-              {mode === "create" ? "ALTA DE PACIENTE" : "DATOS DEL PACIENTE"}
-            </h3>
+            <h3>DATOS DEL PACIENTE</h3>
             {mode === "update" && (
               <TabSelector
                 options={[
@@ -220,7 +219,7 @@ function DataPatient(props) {
                       className={`flex flex-wrap gap-6 justify-center ${styles.inputContainer}`}
                     >
                       <SelectField
-                        label="Tipo de cedula"
+                        label="Tipo de cédula"
                         value={data.tipodocumento}
                         onChange={(e) => handleChange("tipodocumento", e)}
                         options={[
@@ -241,6 +240,16 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("cedula", e)}
                         type="number"
                       />
+                      <InputField
+                        label="Nombres"
+                        value={data.nombre}
+                        onChange={(e) => handleChange("nombre", e)}
+                      />
+                      <InputField
+                        label="Apellidos"
+                        value={data.apellidos}
+                        onChange={(e) => handleChange("apellidos", e)}
+                      />
                       <SelectField
                         label="Estado"
                         value={data.fallecidas}
@@ -256,16 +265,6 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("fecha_ing", e)}
                         type="date"
                         placeholder="dd/mm/aaaa"
-                      />
-                      <InputField
-                        label="Nombres"
-                        value={data.nombre}
-                        onChange={(e) => handleChange("nombre", e)}
-                      />
-                      <InputField
-                        label="Apellidos"
-                        value={data.apellidos}
-                        onChange={(e) => handleChange("apellidos", e)}
                       />
                       <InputField
                         label="Email"
@@ -285,6 +284,15 @@ function DataPatient(props) {
                         readOnly
                       />
                       <SelectField
+                        label="Sexo"
+                        value={data.sexo}
+                        onChange={(e) => handleChange("estadocivil", e)}
+                        options={[
+                          { value: "Femenino", label: "Femenino" },
+                          { value: "Masculino", label: "Masculino" },
+                        ]}
+                      />
+                      <SelectField
                         label="Estado civil"
                         value={data.estadocivil}
                         onChange={(e) => handleChange("estadocivil", e)}
@@ -302,43 +310,33 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("escolaridad", e)}
                         options={[
                           {
-                            value: "primaria: incompleta",
-                            label: "Primaria incompleta",
+                            value: "No estudio",
+                            label: "No estudio",
                           },
                           {
                             value: "primaria: completa",
-                            label: "Primaria completa",
-                          },
-                          {
-                            value: "secundaria: incompleta",
-                            label: "Secundaria incompleta",
+                            label: "Primaria",
                           },
                           {
                             value: "secundaria: completa",
-                            label: "Secundaria completa",
-                          },
-                          {
-                            value: "universitaria: incompleta",
-                            label: "Universitaria incompleta",
+                            label: "Secundaria",
                           },
                           {
                             value: "universitaria: completa",
-                            label: "Universitaria completa",
-                          },
-                          {
-                            value: "posgrado: incompleto",
-                            label: "Posgrado incompleto",
+                            label: "Universidad",
                           },
                           {
                             value: "posgrado: completo",
-                            label: "Posgrado completo",
+                            label: "Posgrado",
                           },
-                          { value: "tecnico", label: "Tecnico" },
-                          { value: "tecnologia", label: "Tecnologia" },
+                          {
+                            value: "Técnico/Tecnologia",
+                            label: "Técnico/Tecnología",
+                          },
                         ]}
                       />
                       <SelectField
-                        label="Ocupacion"
+                        label="Ocupación"
                         value={data.ocupacion}
                         onChange={(e) => handleChange("ocupacion", e)}
                         options={[
@@ -356,7 +354,7 @@ function DataPatient(props) {
                         ]}
                       />
                       <SelectField
-                        label="Religion"
+                        label="Religión"
                         value={data.religion}
                         onChange={(e) => handleChange("religion", e)}
                         options={[
@@ -384,14 +382,23 @@ function DataPatient(props) {
                         options={citiesList}
                       />
                       <InputField
-                        label="Direccion"
+                        label="Dirección"
                         value={data.direccion}
                         onChange={(e) => handleChange("direccion", e)}
                       />
-                      <InputField
+                      <SelectField
                         label="Estrato"
                         value={data.estrato}
                         onChange={(e) => handleChange("estrato", e)}
+                        options={[
+                          { value: "1", label: "1" },
+                          { value: "2", label: "2" },
+                          { value: "3", label: "3" },
+                          { value: "4", label: "4" },
+                          { value: "5", label: "5" },
+                          { value: "6", label: "6" },
+                          { value: "Rural", label: "Rural" },
+                        ]}
                       />
                       <InputField
                         label="Telefono/Celular"
@@ -404,21 +411,21 @@ function DataPatient(props) {
                         value={data.asegurador}
                         onChange={(e) => handleChange("asegurador", e)}
                         options={[
-                          { value: "Asmetsalud", label: "Asmetsalud" },
-                          { value: "Colpatria", label: "Colpatria" },
+                          // { value: "Asmetsalud", label: "Asmetsalud" },
+                          // { value: "Colpatria", label: "Colpatria" },
                           { value: "Comparta", label: "Comparta" },
-                          { value: "Coomeva", label: "Coomeva" },
+                          // { value: "Coomeva", label: "Coomeva" },
                           { value: "Coosalud", label: "Coosalud" },
                           { value: "Ecopetrol", label: "Ecopetrol" },
                           { value: "Ejército", label: "Ejército" },
-                          { value: "Emdisalud", label: " Emdisalud" },
+                          // { value: "Emdisalud", label: " Emdisalud" },
                           { value: "Famisanar", label: "Famisanar" },
                           { value: "Magisterio", label: "Magisterio" },
-                          { value: "Medimás", label: "Medimás" },
-                          { value: "Mutualser", label: "Mutualser" },
+                          // { value: "Medimás", label: "Medimás" },
+                          // { value: "Mutualser", label: "Mutualser" },
                           { value: "Nueva EPS", label: "Nueva EPS" },
                           { value: "SaludMía", label: "SaludMía" },
-                          { value: "SaludVida", label: " SaludVida" },
+                          // { value: "SaludVida", label: " SaludVida" },
                           { value: "Sanitas", label: " Sanitas" },
                           { value: "Suramericana", label: " Suramericana" },
                           { value: "Saludtotal", label: "  Saludtotal" },
@@ -438,36 +445,56 @@ function DataPatient(props) {
                           { value: "Subsidiado", label: "Subsidiado" },
                           {
                             value: "Poblacion pobre no asegurada",
-                            label: "Población pobre no asegurada",
+                            label: "Población no asegurada",
                           },
                         ]}
                       />
                       <SelectField
-                        label="Tipo de cancer"
+                        label="Tipo de cáncer"
                         value={data.tipodecancer}
                         onChange={(e) => handleChange("tipodecancer", e)}
                         options={[
                           { value: "Mama", label: "Mama" },
-                          { value: "Utero", label: "Utero" },
-                          { value: "Ovarios", label: "Ovarios" },
+                          { value: "Utero", label: "Útero" },
+                          { value: "Ovarios", label: "Ovario" },
+                          { value: "Cuello uterino", label: "Cuello uterino" },
                         ]}
                       />
                       <InputField
-                        label="Año de diagnostico"
+                        label="Año de diagnóstico"
                         value={data.tiempo}
                         onChange={(e) => handleChange("tiempo", e)}
                       />
-                      <InputField
-                        label="Estadio clinico"
+                      <SelectField
+                        label="Estadio clínico"
                         value={data.estadioclinico}
                         onChange={(e) => handleChange("estadioclinico", e)}
+                        options={[
+                          { value: "1", label: "I" },
+                          { value: "2", label: "II" },
+                          { value: "3", label: "III" },
+                          { value: "4", label: "IV" },
+                        ]}
                       />
                       <InputField
                         label="Tratamiento"
                         value={data.tratamiento}
                         onChange={(e) => handleChange("tratamiento", e)}
                       />
-
+                      <SelectField
+                        label="Tratamiento"
+                        value={data.tratamiento}
+                        onChange={(e) => handleChange("tratamiento", e)}
+                        options={[
+                          { value: "Quimioterapia", label: "Quimioterapia" },
+                          { value: "Radioterapia", label: "Radioterapia" },
+                          {
+                            value: "Terapia neoadyudante",
+                            label: "Terapia neoadyudante",
+                          },
+                          { value: "Controles", label: "Controles" },
+                        ]}
+                      />
                       <div></div>
                       <div></div>
                       <div></div>
@@ -492,7 +519,7 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("parentesco", e)}
                       />
                       <InputField
-                        label="Telefono/Celular"
+                        label="Teléfono/Celular"
                         value={data.telefonop}
                         onChange={(e) => handleChange("telefonop", e)}
                         type="number"
