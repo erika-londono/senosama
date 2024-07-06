@@ -280,7 +280,7 @@ function DataPatient(props) {
                       />
                       <InputField
                         label="Edad"
-                        value={getAge(data.fecha_nac)}
+                        value={getAge(data.fecha_nac) || ""}
                         readOnly
                       />
                       <SelectField
