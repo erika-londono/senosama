@@ -286,7 +286,7 @@ function DataPatient(props) {
                       <SelectField
                         label="Sexo"
                         value={data.sexo}
-                        onChange={(e) => handleChange("estadocivil", e)}
+                        onChange={(e) => handleChange("sexo", e)}
                         options={[
                           { value: "Femenino", label: "Femenino" },
                           { value: "Masculino", label: "Masculino" },
