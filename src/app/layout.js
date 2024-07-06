@@ -2,7 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
 import AppStateProvider from "@/context/appStateProvider";
-
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -22,7 +23,15 @@ export default function RootLayout({ children }) {
         />
       </Head>
       <body className={inter.className}>
-        <AppStateProvider>{children}</AppStateProvider>
+        <AppStateProvider>
+          <ToastContainer
+            autoClose={3500}
+            theme="dark"
+            position="bottom-center"
+            transition={Slide}
+          />
+          {children}
+        </AppStateProvider>
       </body>
     </html>
   );

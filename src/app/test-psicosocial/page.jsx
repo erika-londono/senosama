@@ -12,6 +12,7 @@ import {
 import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 import Link from "@/components/Link/Link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function DataPatient() {
   const [data, setData] = useState({});
@@ -41,12 +42,12 @@ export default function DataPatient() {
       setSavedData(JSON.stringify(responseData.data));
       setMode("update");
     } else {
-      alert(
-        `Paciente ${formData.cedula} no encontrado. Primero se debe dar de alta.`
-      );
-      router.push(
-        `/datos-del-paciente?mode=create&tipodocumento=${formData.tipodocumento}&cedula=${formData.cedula}`
-      );
+      toast.error(`Paciente ${formData.cedula} no existe. Creémoslo 😀`, {
+        onClose: () =>
+          router.push(
+            `/datos-del-paciente?mode=create&tipodocumento=${formData.tipodocumento}&cedula=${formData.cedula}`
+          ),
+      });
     }
   };
 
@@ -56,9 +57,9 @@ export default function DataPatient() {
     const response = await updatePatientTest(data);
     const responseData = await response.json();
     if (response.status === 200 && !responseData.error) {
-      alert("Actualizado correctamente.");
+      toast.success("Actualizado correctamente");
     } else {
-      alert("Error. Vuelva a intentarlo.");
+      toast.error("No se pudo actualizar");
     }
   };
 

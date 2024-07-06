@@ -2,7 +2,6 @@
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./page.module.css";
 import {
-  Fragment,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -20,10 +19,9 @@ import { getTracking, saveTracking } from "../api/patient/tracking/fetch";
 import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 import Link from "@/components/Link/Link";
 import TabSelector from "@/components/TabSelector/TabSelector";
-import Loader from "@/components/Loader/Loader";
-import TrackingCard from "@/components/TrackingCard/TrackingCard";
 import TrackingSection from "@/components/TrackingSection/TrackingSection";
 import getAge from "@/utils/age";
+import { toast } from "react-toastify";
 
 function DataPatient(props) {
   const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
@@ -95,9 +93,12 @@ function DataPatient(props) {
       setTabSelected("Paciente");
       setMode("update");
     } else {
-      alert("El registro no existe. Deseas crearlo?");
-      setMode("create");
-      setData({ ...formData });
+      toast.info("Paciente no encontrado. Creémoslo 😀", {
+        onClose: () => {
+          setMode("create");
+          setData({ ...formData });
+        },
+      });
     }
     setLoading(false);
   };
@@ -154,7 +155,7 @@ function DataPatient(props) {
       setTrackingList(responseData.data.reverse());
     } else {
       setTrackingList([]);
-      alert(`No se pudo encontrar seguimientos.`);
+      toast.error("No se pudo encontrar seguimientos");
     }
   };
 
