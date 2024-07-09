@@ -36,6 +36,7 @@ export default function DataPatient() {
   };
 
   const onSearch = async (e, formData) => {
+    setLoading(true);
     e.preventDefault();
     const response = await getPatientTest(
       formData.tipodocumento,
@@ -75,6 +76,7 @@ export default function DataPatient() {
         ),
       });
     }
+    setLoading(false);
   };
 
   const onConfirm = async (e) => {
