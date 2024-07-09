@@ -33,7 +33,6 @@ export default function SearchUserForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cleanId]);
 
-  console.log(data.cedula);
   return (
     <form
       className="flex flex-col gap-6 justify-center items-center"
