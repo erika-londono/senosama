@@ -31,6 +31,7 @@ function DataPatient(props) {
   const [savedTrackingData, setSavedTrackingData] = useState("");
 
   const [trackingList, setTrackingList] = useState();
+  const [cleanId, setCleanId] = useState(false);
 
   const [mode, setMode] = useState("search");
   const [loading, setLoading] = useState(false);
@@ -54,6 +55,15 @@ function DataPatient(props) {
     value: dep.Departamento,
     label: dep.Departamento,
   }));
+
+  const resetSearch = () => {
+    setMode("search");
+    setAddTracking(false);
+    setTracking("");
+    setSavedTrackingData("");
+    setTrackingList();
+    setData({});
+  };
 
   const handleChange = (id, e) => {
     setData((prevState) => {
@@ -79,6 +89,10 @@ function DataPatient(props) {
     }
   }, [data.departamento]);
 
+  const cleanIdInput = () => {
+    setCleanId(true);
+  };
+
   const onSearch = async (e, formData) => {
     e.preventDefault();
     setLoading(true);
@@ -93,11 +107,30 @@ function DataPatient(props) {
       setTabSelected("Paciente");
       setMode("update");
     } else {
-      toast.info("Paciente no encontrado. Creémoslo 😀", {
-        onClose: () => {
-          setMode("create");
-          setData({ ...formData });
-        },
+      toast.info("Paciente no encontrado", {
+        className: styles.toastWithOptions,
+        autoClose: 5000,
+        closeButton: ({ closeToast }) => (
+          <div className={styles.toastOptions}>
+            <span
+              onClick={() => {
+                setMode("create");
+                setData({ ...formData });
+                closeToast();
+              }}
+            >
+              Crear
+            </span>
+            <span
+              onClick={() => {
+                cleanIdInput();
+                closeToast();
+              }}
+            >
+              Cancelar
+            </span>
+          </div>
+        ),
       });
     }
     setLoading(false);
@@ -167,15 +200,6 @@ function DataPatient(props) {
     }
   }, [tabSelected]);
 
-  const resetSearch = () => {
-    setMode("search");
-    setAddTracking(false);
-    setTracking("");
-    setSavedTrackingData("");
-    setTrackingList();
-    setData({});
-  };
-
   return (
     <main className={styles.main}>
       <Navbar form />
@@ -206,7 +230,12 @@ function DataPatient(props) {
         </div>
 
         {mode === "search" ? (
-          <SearchUserForm loading={loading} onSubmit={onSearch} />
+          <SearchUserForm
+            loading={loading}
+            onSubmit={onSearch}
+            cleanId={cleanId}
+            setCleanId={setCleanId}
+          />
         ) : (
           <>
             {tabSelected !== "Seguimiento" && (

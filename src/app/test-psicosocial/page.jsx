@@ -42,7 +42,7 @@ export default function DataPatient() {
       setSavedData(JSON.stringify(responseData.data));
       setMode("update");
     } else {
-      toast.error(`Paciente ${formData.cedula} no existe. Creémoslo 😀`, {
+      toast.error(`Paciente ${formData.cedula} no existe.`, {
         onClose: () =>
           router.push(
             `/datos-del-paciente?mode=create&tipodocumento=${formData.tipodocumento}&cedula=${formData.cedula}`

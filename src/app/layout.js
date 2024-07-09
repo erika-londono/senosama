@@ -29,6 +29,7 @@ export default function RootLayout({ children }) {
             theme="dark"
             position="bottom-center"
             transition={Slide}
+            style={{ width: "fit-content" }}
           />
           {children}
         </AppStateProvider>

@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../Card";
 import SelectField from "../SelectField";
 import InputField from "../InputField";
 import Button from "../Button/Button";
 import styles from "./SearchUserForm.module.css";
 
-export default function SearchUserForm({ title, onSubmit, loading }) {
+export default function SearchUserForm({
+  title,
+  onSubmit,
+  loading,
+  cleanId,
+  setCleanId,
+}) {
   const [data, setData] = useState({
     tipodocumento: "Cédula",
     cedula: "6344408",
@@ -14,11 +20,20 @@ export default function SearchUserForm({ title, onSubmit, loading }) {
   const handleChange = (id, e) => {
     setData((prevState) => {
       const newState = { ...prevState };
-      newState[id] = e.target.value;
+      newState[id] = e?.target?.value ?? e;
       return newState;
     });
   };
 
+  useEffect(() => {
+    if (cleanId) {
+      handleChange("cedula", "");
+      setCleanId(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cleanId]);
+
+  console.log(data.cedula);
   return (
     <form
       className="flex flex-col gap-6 justify-center items-center"
