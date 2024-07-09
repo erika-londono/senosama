@@ -11,6 +11,7 @@ import {
   updateTracking,
 } from "@/app/api/patient/tracking/fetch";
 import InputField from "../InputField";
+import { toast } from "react-toastify";
 
 export default function TrackingCard({ data, getTrackingData }) {
   const [editMode, setEditMode] = useState(false);
@@ -25,8 +26,14 @@ export default function TrackingCard({ data, getTrackingData }) {
   });
 
   const handleDelete = async () => {
-    await deleteTracking(data.idseguimiento);
-    getTrackingData();
+    const response = await deleteTracking(data.idseguimiento);
+    const responseData = await response.json();
+    if (response.status === 200 && !responseData.error) {
+      toast.success("Seguimiento eliminado correctamente");
+      getTrackingData();
+    } else {
+      toast.error("No se pudo eliminar");
+    }
   };
 
   const handleEdit = async () => {
@@ -46,9 +53,15 @@ export default function TrackingCard({ data, getTrackingData }) {
   };
 
   const handleSaveChanges = async () => {
-    await updateTracking({ ...data, nota: newData });
+    const response = await updateTracking({ ...data, nota: newData });
+    const responseData = await response.json();
+    if (response.status === 200 && !responseData.error) {
+      toast.success("Seguimiento editado correctamente");
+      getTrackingData();
+    } else {
+      toast.error("No se pudo editar");
+    }
     setEditMode(false);
-    getTrackingData();
   };
 
   return (

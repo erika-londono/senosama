@@ -168,12 +168,19 @@ function DataPatient(props) {
       fecha: new Date(),
       cedula: data.cedula,
     };
-    await saveTracking(payload);
-    setSavedTrackingData(tracking);
-    setAddTracking(false);
-    setTracking("");
-    setSavedTrackingData("");
-    getTrackingData();
+
+    const response = await saveTracking(payload);
+    const responseData = await response.json();
+    if (response.status === 200 && !responseData.error) {
+      toast.success("Seguimiento creado correctamente");
+      setAddTracking(false);
+      setTracking("");
+      setSavedTrackingData("");
+      getTrackingData();
+    } else {
+      toast.error("No se pudo crear");
+    }
+
     setLoading(false);
   };
 
