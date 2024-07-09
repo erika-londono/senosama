@@ -13,12 +13,14 @@ import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 import Link from "@/components/Link/Link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import ToastOptionsContainer from "@/components/ToastOptionsContainer/ToastOptionsContainer";
 
 export default function DataPatient() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [savedData, setSavedData] = useState();
   const [mode, setMode] = useState("search");
+  const [cleanId, setCleanId] = useState(false);
   const router = useRouter();
 
   const handleChange = (id, e) => {
@@ -27,6 +29,10 @@ export default function DataPatient() {
       newState[id] = e.target.value;
       return newState;
     });
+  };
+
+  const cleanIdInput = () => {
+    setCleanId(true);
   };
 
   const onSearch = async (e, formData) => {
@@ -42,11 +48,31 @@ export default function DataPatient() {
       setSavedData(JSON.stringify(responseData.data));
       setMode("update");
     } else {
-      toast.error(`Paciente ${formData.cedula} no existe.`, {
-        onClose: () =>
-          router.push(
-            `/datos-del-paciente?mode=create&tipodocumento=${formData.tipodocumento}&cedula=${formData.cedula}`
-          ),
+      toast.info("Paciente no encontrado", {
+        className: styles.toastWithOptions,
+        autoClose: 5000,
+        closeButton: ({ closeToast }) => (
+          <ToastOptionsContainer>
+            <span
+              onClick={() => {
+                router.push(
+                  `/datos-del-paciente?mode=create&tipodocumento=${formData.tipodocumento}&cedula=${formData.cedula}`
+                );
+                closeToast();
+              }}
+            >
+              Crear
+            </span>
+            <span
+              onClick={() => {
+                cleanIdInput();
+                closeToast();
+              }}
+            >
+              Cancelar
+            </span>
+          </ToastOptionsContainer>
+        ),
       });
     }
   };
@@ -96,7 +122,12 @@ export default function DataPatient() {
           )}
         </div>
         {isSearchMode ? (
-          <SearchUserForm loading={loading} onSubmit={onSearch} />
+          <SearchUserForm
+            loading={loading}
+            onSubmit={onSearch}
+            cleanId={cleanId}
+            setCleanId={setCleanId}
+          />
         ) : (
           <Card>
             <form

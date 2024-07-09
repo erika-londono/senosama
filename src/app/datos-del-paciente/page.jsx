@@ -22,6 +22,7 @@ import TabSelector from "@/components/TabSelector/TabSelector";
 import TrackingSection from "@/components/TrackingSection/TrackingSection";
 import getAge from "@/utils/age";
 import { toast } from "react-toastify";
+import ToastOptionsContainer from "@/components/ToastOptionsContainer/ToastOptionsContainer";
 
 function DataPatient(props) {
   const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
@@ -111,7 +112,7 @@ function DataPatient(props) {
         className: styles.toastWithOptions,
         autoClose: 5000,
         closeButton: ({ closeToast }) => (
-          <div className={styles.toastOptions}>
+          <ToastOptionsContainer>
             <span
               onClick={() => {
                 setMode("create");
@@ -129,7 +130,7 @@ function DataPatient(props) {
             >
               Cancelar
             </span>
-          </div>
+          </ToastOptionsContainer>
         ),
       });
     }
