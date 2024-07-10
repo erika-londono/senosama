@@ -9,11 +9,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(84, 123, 185);
+  background-color: #bb28aa;
   height: 32px;
   width: fit-content;
   padding: 0 16px;
   border-radius: 16px;
   color: white;
   cursor: pointer;
+  font-size: 14px;
+}
+
+.toastOptions > span:last-child {
+  background-color: #881e91;
 }
