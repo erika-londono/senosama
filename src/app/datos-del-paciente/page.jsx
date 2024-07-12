@@ -2,7 +2,6 @@
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./page.module.css";
 import {
-  Fragment,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -20,10 +19,10 @@ import { getTracking, saveTracking } from "../api/patient/tracking/fetch";
 import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 import Link from "@/components/Link/Link";
 import TabSelector from "@/components/TabSelector/TabSelector";
-import Loader from "@/components/Loader/Loader";
-import TrackingCard from "@/components/TrackingCard/TrackingCard";
 import TrackingSection from "@/components/TrackingSection/TrackingSection";
 import getAge from "@/utils/age";
+import { toast } from "react-toastify";
+import ToastOptionsContainer from "@/components/ToastOptionsContainer/ToastOptionsContainer";
 
 function DataPatient(props) {
   const [data, setData] = useState({ tipodocumento: "Cedula de ciudadania" });
@@ -33,6 +32,7 @@ function DataPatient(props) {
   const [savedTrackingData, setSavedTrackingData] = useState("");
 
   const [trackingList, setTrackingList] = useState();
+  const [cleanId, setCleanId] = useState(false);
 
   const [mode, setMode] = useState("search");
   const [loading, setLoading] = useState(false);
@@ -56,6 +56,15 @@ function DataPatient(props) {
     value: dep.Departamento,
     label: dep.Departamento,
   }));
+
+  const resetSearch = () => {
+    setMode("search");
+    setAddTracking(false);
+    setTracking("");
+    setSavedTrackingData("");
+    setTrackingList();
+    setData({});
+  };
 
   const handleChange = (id, e) => {
     setData((prevState) => {
@@ -81,6 +90,10 @@ function DataPatient(props) {
     }
   }, [data.departamento]);
 
+  const cleanIdInput = () => {
+    setCleanId(true);
+  };
+
   const onSearch = async (e, formData) => {
     e.preventDefault();
     setLoading(true);
@@ -95,9 +108,31 @@ function DataPatient(props) {
       setTabSelected("Paciente");
       setMode("update");
     } else {
-      alert("El registro no existe. Deseas crearlo?");
-      setMode("create");
-      setData({ ...formData });
+      toast.info("Paciente no encontrado", {
+        className: styles.toastWithOptions,
+        autoClose: 5000,
+        closeButton: ({ closeToast }) => (
+          <ToastOptionsContainer>
+            <span
+              onClick={() => {
+                setMode("create");
+                setData({ ...formData });
+                closeToast();
+              }}
+            >
+              Crear
+            </span>
+            <span
+              onClick={() => {
+                cleanIdInput();
+                closeToast();
+              }}
+            >
+              Cancelar
+            </span>
+          </ToastOptionsContainer>
+        ),
+      });
     }
     setLoading(false);
   };
@@ -133,12 +168,19 @@ function DataPatient(props) {
       fecha: new Date(),
       cedula: data.cedula,
     };
-    await saveTracking(payload);
-    setSavedTrackingData(tracking);
-    setAddTracking(false);
-    setTracking("");
-    setSavedTrackingData("");
-    getTrackingData();
+
+    const response = await saveTracking(payload);
+    const responseData = await response.json();
+    if (response.status === 200 && !responseData.error) {
+      toast.success("Seguimiento creado correctamente");
+      setAddTracking(false);
+      setTracking("");
+      setSavedTrackingData("");
+      getTrackingData();
+    } else {
+      toast.error("No se pudo crear");
+    }
+
     setLoading(false);
   };
 
@@ -154,7 +196,7 @@ function DataPatient(props) {
       setTrackingList(responseData.data.reverse());
     } else {
       setTrackingList([]);
-      alert(`No se pudo encontrar seguimientos.`);
+      toast.error("No se pudo encontrar seguimientos");
     }
   };
 
@@ -165,15 +207,6 @@ function DataPatient(props) {
       if (addTracking) setAddTracking(false);
     }
   }, [tabSelected]);
-
-  const resetSearch = () => {
-    setMode("search");
-    setAddTracking(false);
-    setTracking("");
-    setSavedTrackingData("");
-    setTrackingList();
-    setData({});
-  };
 
   return (
     <main className={styles.main}>
@@ -205,7 +238,12 @@ function DataPatient(props) {
         </div>
 
         {mode === "search" ? (
-          <SearchUserForm loading={loading} onSubmit={onSearch} />
+          <SearchUserForm
+            loading={loading}
+            onSubmit={onSearch}
+            cleanId={cleanId}
+            setCleanId={setCleanId}
+          />
         ) : (
           <>
             {tabSelected !== "Seguimiento" && (
@@ -280,7 +318,7 @@ function DataPatient(props) {
                       />
                       <InputField
                         label="Edad"
-                        value={getAge(data.fecha_nac)}
+                        value={getAge(data.fecha_nac) || ""}
                         readOnly
                       />
                       <SelectField

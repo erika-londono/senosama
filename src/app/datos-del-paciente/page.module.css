@@ -30,8 +30,11 @@
   width: 350px;
 }
 
-@media (max-width: 450px) {
+.toastWithOptions {
+  width: 450px;
+}
 
+@media (max-width: 450px) {
   .background {
     padding: 1rem;
   }
@@ -46,10 +49,10 @@
   }
 }
 
-
 @media (max-width: 340px) {
-
   .background {
     padding: 0;
   }
 }
+
+

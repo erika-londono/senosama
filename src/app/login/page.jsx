@@ -9,6 +9,7 @@ import BackgroundContainer from "@/components/BackgroundContainer/BackgroundCont
 import { useRouter } from "next/navigation";
 import { login } from "../api/login/fetch";
 import { AppStateContext } from "@/context/appStateProvider";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -28,7 +29,7 @@ export default function SignUp() {
       });
       router.push(`/`);
     } else {
-      alert("Usuario y/o contraseña incorrectos");
+      toast.error("Usuario y/o contraseña incorrectos");
     }
     setLoading(false);
   };

@@ -40,6 +40,15 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  /* Toastify styles */
+  --toastify-color-dark: #390648 !important;
+  --toastify-icon-color-info: #e930d4 !important;
+  --toastify-icon-color-success: #e930d4 !important;
+  --toastify-icon-color-error: #e930d4 !important;
+  --toastify-color-progress-info: #e930d4 !important;
+  --toastify-color-progress-success: #e930d4 !important;
+  --toastify-color-progress-error: #e930d4 !important;
 }
 
 @media (prefers-color-scheme: dark) {

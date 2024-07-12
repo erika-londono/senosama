@@ -12,12 +12,15 @@ import {
 import SearchUserForm from "@/components/SearchUserForm/SearchUserForm";
 import Link from "@/components/Link/Link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import ToastOptionsContainer from "@/components/ToastOptionsContainer/ToastOptionsContainer";
 
 export default function DataPatient() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [savedData, setSavedData] = useState();
   const [mode, setMode] = useState("search");
+  const [cleanId, setCleanId] = useState(false);
   const router = useRouter();
 
   const handleChange = (id, e) => {
@@ -28,7 +31,12 @@ export default function DataPatient() {
     });
   };
 
+  const cleanIdInput = () => {
+    setCleanId(true);
+  };
+
   const onSearch = async (e, formData) => {
+    setLoading(true);
     e.preventDefault();
     const response = await getPatientTest(
       formData.tipodocumento,
@@ -41,13 +49,34 @@ export default function DataPatient() {
       setSavedData(JSON.stringify(responseData.data));
       setMode("update");
     } else {
-      alert(
-        `Paciente ${formData.cedula} no encontrado. Primero se debe dar de alta.`
-      );
-      router.push(
-        `/datos-del-paciente?mode=create&tipodocumento=${formData.tipodocumento}&cedula=${formData.cedula}`
-      );
+      toast.info("Paciente no encontrado", {
+        className: styles.toastWithOptions,
+        autoClose: 5000,
+        closeButton: ({ closeToast }) => (
+          <ToastOptionsContainer>
+            <span
+              onClick={() => {
+                router.push(
+                  `/datos-del-paciente?mode=create&tipodocumento=${formData.tipodocumento}&cedula=${formData.cedula}`
+                );
+                closeToast();
+              }}
+            >
+              Crear
+            </span>
+            <span
+              onClick={() => {
+                cleanIdInput();
+                closeToast();
+              }}
+            >
+              Cancelar
+            </span>
+          </ToastOptionsContainer>
+        ),
+      });
     }
+    setLoading(false);
   };
 
   const onConfirm = async (e) => {
@@ -56,9 +85,9 @@ export default function DataPatient() {
     const response = await updatePatientTest(data);
     const responseData = await response.json();
     if (response.status === 200 && !responseData.error) {
-      alert("Actualizado correctamente.");
+      toast.success("Actualizado correctamente");
     } else {
-      alert("Error. Vuelva a intentarlo.");
+      toast.error("No se pudo actualizar");
     }
   };
 
@@ -95,7 +124,12 @@ export default function DataPatient() {
           )}
         </div>
         {isSearchMode ? (
-          <SearchUserForm loading={loading} onSubmit={onSearch} />
+          <SearchUserForm
+            loading={loading}
+            onSubmit={onSearch}
+            cleanId={cleanId}
+            setCleanId={setCleanId}
+          />
         ) : (
           <Card>
             <form
