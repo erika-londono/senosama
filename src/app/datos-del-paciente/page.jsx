@@ -235,7 +235,7 @@ function DataPatient(props) {
                         ]}
                       />
                       <InputField
-                        label="Cedula"
+                        label="Cédula"
                         value={data.cedula}
                         onChange={(e) => handleChange("cedula", e)}
                         type="number"
@@ -286,7 +286,7 @@ function DataPatient(props) {
                       <SelectField
                         label="Sexo"
                         value={data.sexo}
-                        onChange={(e) => handleChange("estadocivil", e)}
+                        onChange={(e) => handleChange("sexo", e)}
                         options={[
                           { value: "Femenino", label: "Femenino" },
                           { value: "Masculino", label: "Masculino" },
@@ -401,7 +401,7 @@ function DataPatient(props) {
                         ]}
                       />
                       <InputField
-                        label="Telefono/Celular"
+                        label="Teléfono/Celular"
                         value={data.telefono}
                         onChange={(e) => handleChange("telefono", e)}
                         type="number"
@@ -433,13 +433,13 @@ function DataPatient(props) {
                         ]}
                       />
                       <SelectField
-                        label="Regimen"
+                        label="Régimen"
                         value={data.regimen}
                         onChange={(e) => handleChange("regimen", e)}
                         options={[
                           {
                             value: "Regimen especial",
-                            label: "Regimen especial",
+                            label: "Régimen especial",
                           },
                           { value: "Contributivo", label: "Contributivo" },
                           { value: "Subsidiado", label: "Subsidiado" },
