@@ -208,6 +208,23 @@ function DataPatient(props) {
     }
   }, [tabSelected]);
 
+  const [years, setYears] = useState([]);
+
+  const fillYear = () => {
+    const currentYear = new Date().getFullYear();
+    const startYear = 1980;
+    const endYear = currentYear;
+    const years = [];
+
+    for (let year = startYear; year <= endYear; year++) {
+      years.push({ value: year, label: year });
+    }
+
+    return years;
+  };
+  useEffect(() => {
+    setYears(fillYear());
+  }, []);
   return (
     <main className={styles.main}>
       <Navbar form />
@@ -498,8 +515,13 @@ function DataPatient(props) {
                           { value: "Cuello uterino", label: "Cuello uterino" },
                         ]}
                       />
-                      <InputField
+
+                      <SelectField
                         label="Año de diagnóstico"
+                        type="number"
+                        id="year"
+                        name="year"
+                        options={years}
                         value={data.tiempo}
                         onChange={(e) => handleChange("tiempo", e)}
                       />
@@ -522,8 +544,8 @@ function DataPatient(props) {
                           { value: "Quimioterapia", label: "Quimioterapia" },
                           { value: "Radioterapia", label: "Radioterapia" },
                           {
-                            value: "Terapia neoadyudante",
-                            label: "Terapia neoadyudante",
+                            value: "Terapia neoadyuvante",
+                            label: "Terapia neoadyuvante",
                           },
                           { value: "Controles", label: "Controles" },
                         ]}

@@ -44,21 +44,21 @@ export default function SearchUserForm({
           className={`flex flex-wrap gap-6 justify-center ${styles.inputContainer}`}
         >
           <SelectField
-            label="Tipo de cedula"
+            label="Tipo de cédula"
             defaultValue="Cédula"
             value={data.tipodocumento || "Cédula"}
             onChange={(e) => handleChange("tipodocumento", e)}
             options={[
               { value: "Cédula", label: "Cédula de ciudadanía" },
               {
-                value: "Cedula de extranjeria",
-                label: "Cedula de extranjeria",
+                value: "Cédula de extranjería",
+                label: "Cedula de extranjería",
               },
               { value: "Pasaporte", label: "Pasaporte" },
             ]}
           />
           <InputField
-            label="Cedula"
+            label="Cédula"
             value={data.cedula}
             onChange={(e) => handleChange("cedula", e)}
             type="number"
