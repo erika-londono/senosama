@@ -14,7 +14,7 @@ export default function SearchUserForm({
 }) {
   const [data, setData] = useState({
     tipodocumento: "Cédula",
-    cedula: "6344408",
+    cedula: "",
   });
 
   const handleChange = (id, e) => {
