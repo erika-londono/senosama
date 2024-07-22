@@ -73,6 +73,10 @@ function DataPatient(props) {
       if (id === "departamento") {
         newState["municipio"] = "";
       }
+      if (id === 'fecha_nac') {
+        newState["existencia"] = (getAge(data.fecha_nac)).toString();
+      }
+
       return newState;
     });
   };
@@ -369,23 +373,23 @@ function DataPatient(props) {
                             label: "No estudio",
                           },
                           {
-                            value: "primaria: completa",
+                            value: "Primaria",
                             label: "Primaria",
                           },
                           {
-                            value: "secundaria: completa",
+                            value: "Secundaria",
                             label: "Secundaria",
                           },
                           {
-                            value: "universitaria: completa",
+                            value: "Universidad",
                             label: "Universidad",
                           },
                           {
-                            value: "posgrado: completo",
+                            value: "Posgrado",
                             label: "Posgrado",
                           },
                           {
-                            value: "Técnico/Tecnologia",
+                            value: "Técnico/Tecnología",
                             label: "Técnico/Tecnología",
                           },
                         ]}
