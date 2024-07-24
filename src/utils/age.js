@@ -1,4 +1,5 @@
 export default function getAge(date) {
+  if (!date) return '0';
   if (typeof date !== "string") {
     return;
   }
