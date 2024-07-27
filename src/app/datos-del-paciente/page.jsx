@@ -73,8 +73,8 @@ function DataPatient(props) {
       if (id === "departamento") {
         newState["municipio"] = "";
       }
-      if (id === 'fecha_nac') {
-        newState["existencia"] = (getAge(data.fecha_nac)).toString();
+      if (id === "fecha_nac") {
+        newState["existencia"] = getAge(data.fecha_nac).toString();
       }
 
       return newState;
@@ -546,10 +546,19 @@ function DataPatient(props) {
                         onChange={(e) => handleChange("tratamiento", e)}
                         options={[
                           { value: "Quimioterapia", label: "Quimioterapia" },
-                          { value: "Radioterapia", label: "Radioterapia" },
                           {
-                            value: "Terapia neoadyuvante",
-                            label: "Terapia neoadyuvante",
+                            value: "Quimioterapia - Radioterapia",
+                            label: "Quimioterapia - Radioterapia",
+                          },
+                          {
+                            value: "Quimioterapia - Radioterapia - Cirugía",
+                            label: "Quimioterapia - Radioterapia - Cirugía",
+                          },
+                          {
+                            value:
+                              "Quimioterapia - Radioterapia - Cirugía - Tratamiento hormonal o neoadyubante",
+                            label:
+                              "Quimioterapia - Radioterapia - Cirugía - Tratamiento hormonal o neoadyubante",
                           },
                           { value: "Controles", label: "Controles" },
                         ]}
