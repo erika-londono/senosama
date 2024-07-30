@@ -529,6 +529,11 @@ function DataPatient(props) {
                         value={data.tiempo}
                         onChange={(e) => handleChange("tiempo", e)}
                       />
+                      <InputField
+                        label="Observaciones Estadio clínico"
+                        value={data.observacionesestadioclinico}
+                        onChange={(e) => handleChange("observacionesestadioclinico", e)}
+                      />
                       <SelectField
                         label="Estadio clínico"
                         value={data.estadioclinico}

@@ -48,7 +48,7 @@ export async function POST(request) {
   }
 
   const bdResponse = await client.execute({
-    sql: "INSERT INTO formulario (tipodocumento, cedula, nombre, apellidos, fecha_nac, existencia, estadocivil, escolaridad, ocupacion, sicontesto1o2, pension, religion, departamento, municipio, direccion, telefono, asegurador, regimen, tipodecancer, estadioclinico, tratamiento, personaresponsable, parentesco, telefonop, necesidadesencontradas, date_seguimiento, relacionfamilia, dispuestaacompartir, infancia, sentido, buscadoayuda, consideras, sentidotriste, apoyo, injusta, pronostico, email, estrato, tiempo, quepiensa, fallecidas, fecha_ing, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    sql: "INSERT INTO formulario (tipodocumento, cedula, nombre, apellidos, fecha_nac, existencia, estadocivil, escolaridad, ocupacion, sicontesto1o2, pension, religion, departamento, municipio, direccion, telefono, asegurador, regimen, tipodecancer, observacionesestadioclinico, estadioclinico, tratamiento, personaresponsable, parentesco, telefonop, necesidadesencontradas, date_seguimiento, relacionfamilia, dispuestaacompartir, infancia, sentido, buscadoayuda, consideras, sentidotriste, apoyo, injusta, pronostico, email, estrato, tiempo, quepiensa, fallecidas, fecha_ing, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     args: [
       body.tipodocumento || "",
       body.cedula || "",
@@ -69,6 +69,7 @@ export async function POST(request) {
       body.asegurador || "",
       body.regimen || "",
       body.tipodecancer || "",
+      body.observacionesestadioclinico || "",
       body.estadioclinico || "",
       body.tratamiento || "",
       body.personaresponsable || "",
@@ -115,7 +116,7 @@ export async function PUT(request) {
   const body = await request.json();
   const client = createTursoClient();
   const bdResponse = await client.execute({
-    sql: "UPDATE formulario SET (tipodocumento, cedula, nombre, apellidos, fecha_nac, existencia, estadocivil, escolaridad, ocupacion, sicontesto1o2, pension, religion, departamento, municipio, direccion, telefono, asegurador, regimen, tipodecancer, estadioclinico, tratamiento, personaresponsable, parentesco, telefonop, necesidadesencontradas, date_seguimiento, relacionfamilia, dispuestaacompartir, infancia, sentido, buscadoayuda, consideras, sentidotriste, apoyo, injusta, pronostico, email, estrato, tiempo, quepiensa, fallecidas, fecha_ing, sexo) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE cedula = ?",
+    sql: "UPDATE formulario SET (tipodocumento, cedula, nombre, apellidos, fecha_nac, existencia, estadocivil, escolaridad, ocupacion, sicontesto1o2, pension, religion, departamento, municipio, direccion, telefono, asegurador, regimen, tipodecancer, observacionesestadioclinico, estadioclinico, tratamiento, personaresponsable, parentesco, telefonop, necesidadesencontradas, date_seguimiento, relacionfamilia, dispuestaacompartir, infancia, sentido, buscadoayuda, consideras, sentidotriste, apoyo, injusta, pronostico, email, estrato, tiempo, quepiensa, fallecidas, fecha_ing, sexo) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE cedula = ?",
     args: [
       body.tipodocumento,
       body.cedula,
@@ -136,6 +137,7 @@ export async function PUT(request) {
       body.asegurador,
       body.regimen,
       body.tipodecancer,
+      body.observacionesestadioclinico,
       body.estadioclinico,
       body.tratamiento,
       body.personaresponsable,
